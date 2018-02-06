@@ -49,6 +49,9 @@ class AbstractApplication {
 
         window.gui.add(this._controls, "autoRotate");
 
+        this.fovControl = window.gui.add(this._camera, "fov", 20, 120);
+        this.fovControl.onChange(value => { this._camera.updateProjectionMatrix() });
+
         // stats
         this.stats = new Stats();
         this.stats.setMode(0);

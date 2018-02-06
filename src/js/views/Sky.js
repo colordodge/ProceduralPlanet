@@ -92,12 +92,7 @@ class Sky {
   updateMaterial() {
     for (let i=0; i<6; i++) {
       let material = this.materials[i];
-      // material.roughness = this.roughness;
-      // material.metalness = this.metalness;
       material.map = this.skyMaps[i];
-      // material.emissive = new THREE.Color(0xFFFFFF);
-      // material.emissiveMap = this.skyMaps[i];
-      // material.emissiveIntensity = this.emissiveIntensity;
     }
   }
 
