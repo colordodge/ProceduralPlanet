@@ -26,9 +26,9 @@ class AbstractApplication {
         let ambientLight = new THREE.AmbientLight(0xffffff, 0.0);
         this._scene.add(ambientLight);
 
-        let directionalLight = new THREE.DirectionalLight( 0xffffff, 1.6 );
-        directionalLight.position.set( -1, 1.0, 1 );
-        this._scene.add(directionalLight);
+        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.6 );
+        this.directionalLight.position.set( -1, 1.0, 1 );
+        this._scene.add(this.directionalLight);
 
         // let directionalLight2 = new THREE.DirectionalLight( 0xffffff, 0.5 );
         // directionalLight2.position.set( -3, 10, 5 );
@@ -46,6 +46,17 @@ class AbstractApplication {
 
         // gui
         window.gui = new dat.GUI();
+
+
+        this.sunColor = {r:255, g:255, b:255};
+        this.dirLightControl = window.gui.addColor(this, "sunColor").onChange(value => {
+          this.directionalLight.color.r = this.sunColor.r / 255;
+          this.directionalLight.color.g = this.sunColor.g / 255;
+          this.directionalLight.color.b = this.sunColor.b / 255;
+        });
+
+        window.gui.add(this.directionalLight, "intensity", 0.0, 3.0);
+        // this.dirLightControl.onChange(value => {});
 
         window.gui.add(this._controls, "autoRotate");
 
