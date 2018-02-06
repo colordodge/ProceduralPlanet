@@ -37,10 +37,10 @@ class NebulaeGradient {
     let numStrips = Math.round(Math.random()*80) + 20;
     numStrips = 20;
     for (let i=0; i<numStrips; i++) {
-      this.randomGradientRect();
+      this.randomGradientCircle();
     }
 
-    // document.body.appendChild(this.canvas);
+    document.body.appendChild(this.canvas);
     this.texture = new THREE.CanvasTexture(this.canvas);
   }
 
@@ -50,16 +50,36 @@ class NebulaeGradient {
   }
 
   randomGradientRect() {
-    let x1 = 0;
+    let x1 = Math.random() * this.width;
     let y1 = Math.random() * this.height;
-    let x2 =0;
-    let y2 = y1 + Math.random() * 100+100;
+    let x2 = x1 + Math.random() * 100+100 * (Math.round(Math.random())*2-1);
+    let y2 = y1 + Math.random() * 100+100 * (Math.round(Math.random())*2-1);
 
     let gradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
 
     let c = this.randomColor();
     gradient.addColorStop(0, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
     gradient.addColorStop(0.5, "rgba("+c.r+", "+c.g+", "+c.b+", 1.0)");
+    gradient.addColorStop(1, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
+
+    this.ctx.fillStyle = gradient;
+    this.ctx.fillRect(0, 0, this.width, this.height);
+  }
+
+  randomGradientCircle() {
+    let x1 = Math.random() * this.width;
+    let y1 = Math.random() * this.height;
+    let size = Math.random()*200+30;
+    let x2 = x1;
+    let y2 = y1;
+    let r1 = 0;
+    let r2 = size;
+
+    let gradient = this.ctx.createRadialGradient(x1,y1,r1,x2,y2,r2);
+
+    let c = this.randomColor();
+
+    gradient.addColorStop(0, "rgba("+c.r+", "+c.g+", "+c.b+", 1.0)");
     gradient.addColorStop(1, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
 
     this.ctx.fillStyle = gradient;

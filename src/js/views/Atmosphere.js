@@ -26,7 +26,7 @@ class Atmosphere {
 
     this.size = 1005;
 
-    this.atmosphere = 0.3;
+    this.atmosphere = 0.0;
     window.gui.add(this, "atmosphere", 0.0, 1.0);
 
     // window.gui.add(this, "atmo1", 0.0, 3.0);

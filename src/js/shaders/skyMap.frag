@@ -401,10 +401,14 @@ void main() {
 
 	float nebulaStrength = 1.0;
 	float c1 = cloudNoise(sphericalCoord, res1, seed);
-	float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.2), res2, seed+10.4);
+	float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.3), res2, seed+10.4);
 	c2 = pow(c2, 1.5) * 1.2;
 	// c2 = clamp(c2, 0.0, 1.0);
-	vec3 nColor = texture2D(nebulaeMap, vec2(0.5, c1)).rgb * c1 * c2 * nebulaStrength;
+
+  float c3 = cloudNoise(sphericalCoord, resMix, seed + 61.384);
+
+	// vec3 nColor = texture2D(nebulaeMap, vec2(0.5, c1)).rgb * c1 * c2 * nebulaStrength;
+	vec3 nColor = texture2D(nebulaeMap, vec2(c3, c1)).rgb * c1 * c2 * nebulaStrength;
 
 	// add in large stars to nebulae
 	F = worley3D((sphericalCoord * 30.0) + vec3(seed+35.890), 1.0, true);
@@ -412,8 +416,8 @@ void main() {
 	float n2 = F1;
 	n2 = 1.0 - n2;
 	n2 *= 1.2;
-	n2 = pow(n2, 8.0);
-	n2 *= c2;
+	n2 = pow(n2, 9.0);
+	n2 *= c3;
 	nColor += vec3(n2);
 
 	// add in a smaller amount of even very big stars

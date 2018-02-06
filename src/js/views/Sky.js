@@ -78,7 +78,7 @@ class Sky {
       resolution: this.resolution,
         res1: this.randRange(0.5, 1.0),
       res2: this.randRange(0.5, 1.0),
-      resMix: 1.0,
+      resMix: this.randRange(0.5, 1.0),
       mixScale: 0.5,
       color1: this.color1,
       color2: this.color2,

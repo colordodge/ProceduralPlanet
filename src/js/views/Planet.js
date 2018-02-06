@@ -64,7 +64,7 @@ class Planet {
     this.metalnessControl = window.gui.add(this, "metalness", 0.0, 1.0);
     this.metalnessControl.onChange(value => { this.updateMaterial(); });
 
-    this.normalScaleControl = window.gui.add(this, "normalScale", 0.0, 10.0).listen();
+    this.normalScaleControl = window.gui.add(this, "normalScale", -3.0, 6.0).listen();
     this.normalScaleControl.onChange(value => { this.updateMaterial(); });
 
     window.gui.add(this, "autoGenerate");
