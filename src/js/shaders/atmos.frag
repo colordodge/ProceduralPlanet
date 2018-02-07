@@ -36,6 +36,38 @@ void main() {
     // atmospheric scattering
     ///////////////////////////
 
+    // float PI = 3.14159265358979323846264;
+		// // light = light - vPosition;
+		// vec3 cameraDir = normalize(cameraVector);
+    //
+    // // vec3 newNormal = bumpNormal(normalMap, vUv);
+    // vec3 newNormal = vNormal;
+    //
+		// light = normalize(light);
+    //
+		// float lightAngle = max(0.0, dot(newNormal, light));
+		// float viewAngle = max(0.0, dot(vNormal, cameraDir));
+		// float adjustedLightAngle = min(0.6, lightAngle) / 0.6;
+		// float adjustedViewAngle = min(0.65, viewAngle) / 0.65;
+		// float invertedViewAngle = pow(acos(viewAngle), 3.0) * 0.4;
+    //
+		// float dProd = 0.0;
+		// dProd += atmo1 * lightAngle;
+		// dProd += atmo2 * lightAngle * (invertedViewAngle - atmo5);
+		// dProd += invertedViewAngle * 1.5 * (max(-0.35, dot(vNormal, light)) + 0.35);
+		// dProd *= atmo3 + pow(invertedViewAngle/(PI/2.0), 2.0);
+    //
+		// dProd *= atmo4;
+		// vec4 atmColor = vec4(color, dProd);
+    //
+    // // texelColor = texture2D(map, vUv) * min(asin(lightAngle), 1.0);
+    // // texelColor = newColor * min(asin(lightAngle), 1.0);
+    //
+		// gl_FragColor = texelColor + min(atmColor, alpha);
+
+    /////////////////////////
+
+
     float PI = 3.14159265358979323846264;
 		// light = light - vPosition;
 		vec3 cameraDir = normalize(cameraVector);
@@ -58,20 +90,18 @@ void main() {
 		dProd *= atmo3 + pow(invertedViewAngle/(PI/2.0), 2.0);
 
 		dProd *= atmo4;
+
+
+    dProd = invertedViewAngle * 1.0;
+    dProd = pow(dProd, 1.0);
+
+
 		vec4 atmColor = vec4(color, dProd);
 
     // texelColor = texture2D(map, vUv) * min(asin(lightAngle), 1.0);
     // texelColor = newColor * min(asin(lightAngle), 1.0);
 
 		gl_FragColor = texelColor + min(atmColor, alpha);
-
-
-    // gl_FragColor = vec4(0.0, 1.0, 1.0, 0.1);
-
-    /////////////////////////
-
-
-    // gl_FragColor = texelColor;
 
 
 }

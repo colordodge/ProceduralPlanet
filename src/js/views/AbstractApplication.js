@@ -15,20 +15,36 @@ class AbstractApplication {
 
         this._scene = new THREE.Scene();
 
-        this._renderer = new THREE.WebGLRenderer({antialias: false});
+        this._renderer = new THREE.WebGLRenderer({antialias: false, alpha: true});
         this._renderer.setPixelRatio( window.devicePixelRatio );
+        // this._renderer.alpha = true;
         // this._renderer.setPixelRatio( 0.5 );
         this._renderer.setSize( window.innerWidth, window.innerHeight );
         window.renderer = this._renderer;
         document.body.appendChild( this._renderer.domElement );
 
         // lights
-        let ambientLight = new THREE.AmbientLight(0xffffff, 0.0);
+        let ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
         this._scene.add(ambientLight);
 
-        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.6 );
+        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.3 );
         this.directionalLight.position.set( -1, 1.0, 1 );
         this._scene.add(this.directionalLight);
+
+
+        // var textureFlare = textureLoader.load( "textures/lensflare/lensflare.png" );
+        var textureFlare = new THREE.TextureLoader().load( 'assets/textures/lenseFlare.jpg' );
+        var textureFlare2 = new THREE.TextureLoader().load( 'assets/textures/lenseFlare.png' );
+        var flareColor = new THREE.Color( 0xffffff );
+
+        var lensFlare = new THREE.LensFlare( textureFlare, 700, 0.0, THREE.AdditiveBlending, flareColor );
+
+        // lensFlare.add( textureFlare, 900, 0.1, THREE.AdditiveBlending, new THREE.Color( 0x666666 ) );
+
+
+
+        lensFlare.position.set(-20000, 20000, 20000);
+        this._scene.add( lensFlare );
 
         // let directionalLight2 = new THREE.DirectionalLight( 0xffffff, 0.5 );
         // directionalLight2.position.set( -3, 10, 5 );

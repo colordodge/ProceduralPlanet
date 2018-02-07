@@ -40,7 +40,7 @@ class Planet {
 
     this.createScene();
     this.createSky();
-    this.createSun();
+    // this.createSun();
     // this.createClouds();
     // this.createGlow();
     this.createAtmosphere();
@@ -51,7 +51,7 @@ class Planet {
     this.rotate = true;
     this.autoGenerate = false;
     this.autoGenCountCurrent = 0;
-    this.autoGenCountMax = 180 * 60;
+    this.autoGenCountMax = 5 * 60 * 60;
 
     window.gui.add(this, "rotate");
     window.gui.add(this, "waterLevel", 0.0, 1.0);
@@ -68,11 +68,11 @@ class Planet {
     this.normalScaleControl.onChange(value => { this.updateMaterial(); });
 
     window.gui.add(this, "autoGenerate");
-    window.gui.add(this, "generatePlanet");
+    window.gui.add(this, "generateAll");
 
     document.addEventListener('keydown', (event) => {
       if (event.keyCode == 32) {
-        this.generatePlanet();
+        this.generateAll();
       }
     });
 
@@ -89,16 +89,19 @@ class Planet {
     if (this.autoGenerate) {
       this.autoGenCountCurrent++;
       if (this.autoGenCountCurrent > this.autoGenCountMax) {
-        this.generatePlanet();
+        this.generateAll();
       }
     }
 
+    this.sky.view.position.copy(window.camera.position);
+
   }
 
-  generatePlanet() {
+  generateAll() {
     this.autoGenCountCurrent = 0;
     this.renderScene();
   }
+
 
   createScene() {
     this.heightMap = new NoiseMap();
@@ -133,6 +136,7 @@ class Planet {
     this.ground = new THREE.Mesh(geo, this.materials);
     this.view.add(this.ground);
   }
+
 
   renderScene() {
 
@@ -236,6 +240,9 @@ class Planet {
 
   renderNebulaeGradient() {
     this.nebulaeGradient = new NebulaeGradient();
+    this.nebulaeGradient.baseColor = this.biome.baseColor;
+    // this.nebulaeGradient.colorAngle = this.biome.colorAngle;
+    this.nebulaeGradient.generateTexture();
   }
 
   createAtmosphere() {

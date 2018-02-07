@@ -24,7 +24,7 @@ class Atmosphere {
     // this.randomizeColor();
     this.color = new THREE.Color();
 
-    this.size = 1005;
+    this.size = 1105;
 
     this.atmosphere = 0.0;
     window.gui.add(this, "atmosphere", 0.0, 1.0);
@@ -52,6 +52,7 @@ class Atmosphere {
 
     this.mat.transparent = true;
     this.mat.blending = THREE.AdditiveBlending;
+    this.mat.side = THREE.BackSide;
 
     // this.mat = new THREE.MeshStandardMaterial({color: 0xFFFFFF});
 
