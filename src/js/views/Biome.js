@@ -16,9 +16,10 @@ class Biome {
     this.colorAngle = this.randRange(0.0, 0.5)
     // console.log("biome colorAngle = " + this.colorAngle);
 
-    this.satRange = this.randRange(0.2, 0.5);
-    this.lightRange = this.randRange(0.2, 0.5);
+    this.satRange = this.randRange(0.3, 0.5);
+    this.lightRange = this.randRange(0.3, 0.5);
 
+    this.circleSize = this.randRange(30, 300)
 
 
     this.generateTexture();
@@ -42,7 +43,7 @@ class Biome {
 
 
     // circles
-    let numCircles = Math.round(Math.random()*80) + 20;
+    let numCircles = Math.round(Math.random()*90) + 10;
     // numCircles = 100;
     for (let i=0; i<numCircles; i++) {
       this.randomGradientCircle();
@@ -72,8 +73,7 @@ class Biome {
     // document.body.appendChild(this.canvas);
     this.texture = new THREE.CanvasTexture(this.canvas);
 
-    // let r = Math.random();
-    // console.log("number 1 = " + r);
+
   }
 
   drawBase() {
@@ -269,7 +269,7 @@ class Biome {
   randomGradientCircle() {
     let x1 = Math.random() * this.width;
     let y1 = Math.random() * this.height - this.height * this.waterLevel;
-    let size = Math.random()*170+1;
+    let size = Math.random()*this.circleSize+1;
     let x2 = x1;
     let y2 = y1;
     let r1 = 0;
@@ -302,7 +302,7 @@ class Biome {
     }
     newColor.offsetHSL(hOffset, sOffset, 0);
     let c = newColor.getHSL();
-    newColor.setHSL(c.h, this.randRange(0.0, 0.5), this.randRange(0.4, 0.6));
+    newColor.setHSL(c.h, this.randRange(0.0, 0.5), this.randRange(0.2, 0.5));
     return {r: Math.round(newColor.r*255),
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};

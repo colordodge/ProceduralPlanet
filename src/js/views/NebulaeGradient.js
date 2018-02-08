@@ -15,7 +15,7 @@ class NebulaeGradient {
     let l = this.randRange(0.4, 0.6);
     // let l = 0.5;
     this.baseColor = new THREE.Color().setHSL(h, s, l);
-    this.colorAngle = this.randRange(0.0, 0.5)
+    this.colorAngle = this.randRange(0.0, 0.2)
     // console.log("nebula colorAngle = " + this.colorAngle);
 
     // this.generateTexture();
@@ -102,8 +102,8 @@ class NebulaeGradient {
       hOffset = -this.colorAngle + this.randRange(-range, range);
     }
 
-    let sOffset = this.randRange(-0.4, 0.4);
-    let lOffset = this.randRange(-0.4, 0.4);
+    let sOffset = this.randRange(-0.3, 0.3);
+    let lOffset = this.randRange(-0.3, 0.3);
 
     newColor.offsetHSL(hOffset, sOffset, lOffset);
 
