@@ -69,7 +69,7 @@ class Clouds {
   }
 
   render(props) {
-    this.seed = Math.random() * 1000;
+    this.seed = this.randRange(0, 1000);
     let cloudSize = this.randRange(0.5, 1.0);
 
     let mixScale = this.map_range(props.waterLevel*props.waterLevel, 0, 0.8, 0.0, 3.0);
@@ -107,9 +107,9 @@ class Clouds {
 
   randomizeColor() {
 
-    this.color.r = 0.7 + Math.random()*0.3;
-    this.color.g = 0.7 + Math.random()*0.3;
-    this.color.b = 0.7 + Math.random()*0.3;
+    this.color.r = this.randRange(0.7, 1.0);
+    this.color.g = this.randRange(0.7, 1.0);
+    this.color.b = this.randRange(0.7, 1.0);
 
     this.updateMaterial();
   }

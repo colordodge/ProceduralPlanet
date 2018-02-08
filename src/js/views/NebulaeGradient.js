@@ -4,16 +4,11 @@ import * as THREE from 'three'
 class NebulaeGradient {
 
   constructor() {
-    this.waterLevel = 0.0;
-
-    this.desatAmount = Math.random();
-
 
     let h = this.randRange(0.0, 1.0);
     let s = this.randRange(0.3, 0.7);
-    // let s = 1;
     let l = this.randRange(0.4, 0.6);
-    // let l = 0.5;
+
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.2)
     // console.log("nebula colorAngle = " + this.colorAngle);
@@ -34,7 +29,7 @@ class NebulaeGradient {
 
     this.fillBaseColor();
 
-    let numStrips = Math.round(Math.random()*80) + 20;
+    let numStrips = Math.round(this.randRange(20, 100));
     numStrips = 20;
     for (let i=0; i<numStrips; i++) {
       this.randomGradientCircle();
@@ -49,27 +44,10 @@ class NebulaeGradient {
     this.ctx.fillRect(0, 0, this.width, this.height);
   }
 
-  randomGradientRect() {
-    let x1 = Math.random() * this.width;
-    let y1 = Math.random() * this.height;
-    let x2 = x1 + Math.random() * 100+100 * (Math.round(Math.random())*2-1);
-    let y2 = y1 + Math.random() * 100+100 * (Math.round(Math.random())*2-1);
-
-    let gradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
-
-    let c = this.randomColor();
-    gradient.addColorStop(0, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
-    gradient.addColorStop(0.5, "rgba("+c.r+", "+c.g+", "+c.b+", 1.0)");
-    gradient.addColorStop(1, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
-
-    this.ctx.fillStyle = gradient;
-    this.ctx.fillRect(0, 0, this.width, this.height);
-  }
-
   randomGradientCircle() {
-    let x1 = Math.random() * this.width;
-    let y1 = Math.random() * this.height;
-    let size = Math.random()*200+30;
+    let x1 = this.randRange(0, this.width);
+    let y1 = this.randRange(0, this.height);
+    let size = this.randRange(30, 230);
     let x2 = x1;
     let y2 = y1;
     let r1 = 0;
@@ -93,7 +71,7 @@ class NebulaeGradient {
 
     let hOffset = 0.0;
     let range = 0.1;
-    let n = Math.random();
+    let n = this.randRange(0,1);
     if (n < 0.33) {
       hOffset = 0.0 + this.randRange(-range, range);
     } else if (n < 0.66) {

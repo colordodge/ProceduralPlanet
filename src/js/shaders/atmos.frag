@@ -91,11 +91,6 @@ void main() {
 
 		dProd *= atmo4;
 
-
-    dProd = invertedViewAngle * 1.0;
-    dProd = pow(dProd, 1.0);
-
-
 		vec4 atmColor = vec4(color, dProd);
 
     // texelColor = texture2D(map, vUv) * min(asin(lightAngle), 1.0);

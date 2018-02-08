@@ -101,10 +101,7 @@ class Planet {
   }
 
   initSeed() {
-    // this.seedString = seedrandom("jason", {global: true});
-    // this.seed = Math.random() * 1000.0;
-    // console.log("seedString = " + this.seedString);
-    // console.log("seed = " + this.seed);
+    
   }
 
   generateAll() {
@@ -153,11 +150,9 @@ class Planet {
     // this.seedString = seedrandom("daycare", {global: true});
     // console.log("seedString = " + this.seedString);
 
-    this.seed = Math.ceil(Math.random() * 100000.0);
+    this.seed = this.randRange(0, 1) * 1000.0;
     // this.seed = 0.1;
     // console.log("seed = " + this.seed);
-
-
 
 
     this.waterLevel = this.randRange(0.1, 0.6);
@@ -171,12 +166,8 @@ class Planet {
 
     // this.seedString = seedrandom("daycare", {global: true});
 
-    let r = Math.random();
-    console.log("number 1 = " + r);
 
     this.renderNebulaeGradient();
-
-
 
 
     this.sky.resolution = this.resolution;
@@ -200,7 +191,7 @@ class Planet {
       res2: this.randRange(0.1, 2.0),
       resMix: this.randRange(0.1, 2.0),
       mixScale: this.randRange(0.3, 0.7),
-      doesRidged: Math.floor(Math.random()*4)
+      doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 1
     });
 
@@ -211,7 +202,7 @@ class Planet {
       res2: this.randRange(0.1, 2.0),
       resMix: this.randRange(0.1, 2.0),
       mixScale: this.randRange(0.3, 0.7),
-      doesRidged: Math.floor(Math.random()*4)
+      doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 0
     });
 

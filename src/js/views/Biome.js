@@ -4,7 +4,7 @@ import * as THREE from 'three'
 class Biome {
 
   constructor(props) {
-    // this.waterLevel = Math.random();
+
     this.waterLevel = props.waterLevel;
 
     let h = this.randRange(0.0, 1.0);
@@ -43,7 +43,7 @@ class Biome {
 
 
     // circles
-    let numCircles = Math.round(Math.random()*90) + 10;
+    let numCircles = Math.round(this.randRange(10, 100));
     // numCircles = 100;
     for (let i=0; i<numCircles; i++) {
       this.randomGradientCircle();
@@ -90,14 +90,14 @@ class Biome {
 
   drawDetail() {
     // land detail
-    let landDetail = Math.round(Math.random() * 5) + 0;
+    let landDetail = Math.round(this.randRange(0, 5));
     // landDetail = 20;
     // console.log("landDetail = " + landDetail);
     for (let i=0; i<landDetail; i++) {
-      let x1 = Math.random() * this.width;
-      let y1 = Math.random() * this.height;
-      let x2 = Math.random() * this.width;
-      let y2 = Math.random() * this.height;
+      let x1 = this.randRange(0, this.width);
+      let y1 = this.randRange(0, this.height);
+      let x2 = this.randRange(0, this.width);
+      let y2 = this.randRange(0, this.height);
       let width = x2-x1;
       let height = y2-y1;
 
@@ -111,14 +111,14 @@ class Biome {
     let c = this.randomColor();
     this.ctx.strokeStyle = "rgba("+c.r+", "+c.g+", "+c.b+", 0.5)";
 
-    let x = Math.random() * this.width;
-    let y = Math.random() * this.height;
+    let x = this.randRange(0, this.width);
+    let y = this.randRange(0, this.height);
     let prevX = x;
     let prevY = y;
 
     for (let i=0; i<5; i++) {
-      x = Math.random() * this.width;
-      y = Math.random() * this.height;
+      x = this.randRange(0, this.width);
+      y = this.randRange(0, this.height);
 
       this.ctx.moveTo(prevX, prevY);
       this.ctx.lineTo(x, y);
@@ -130,9 +130,9 @@ class Biome {
   }
 
   randomCircle() {
-    let x = Math.random() * this.width;
-    let y = Math.random() * this.height;
-    let rad = Math.random() * 10;
+    let x = this.randRange(0, this.width);
+    let y = this.randRange(0, this.height);
+    let rad = this.randRange(0, 10);
     // rad = 3;
 
     let c = this.randomColor();
@@ -145,17 +145,17 @@ class Biome {
   }
 
   randomGradientStrip(x, y, width, height) {
-    let x1 = Math.random() * this.width;
-    let y1 = Math.random() * this.height;
-    let x2 = Math.random() * this.width;
-    let y2 = Math.random() * this.height;
+    let x1 = this.randRange(0, this.width);
+    let y1 = this.randRange(0, this.height);
+    let x2 = this.randRange(0, this.width);
+    let y2 = this.randRange(0, this.height);
 
     let gradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
 
     let c = this.randomColor();
-    gradient.addColorStop(Math.random()*0.5, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
+    gradient.addColorStop(this.randRange(0, 0.5), "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
     gradient.addColorStop(0.5, "rgba("+c.r+", "+c.g+", "+c.b+", 0.8)");
-    gradient.addColorStop(Math.random()*0.5+0.5, "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
+    gradient.addColorStop(this.randRange(0.5, 1.0), "rgba("+c.r+", "+c.g+", "+c.b+", 0.0)");
 
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(x, y, width, height);
@@ -183,10 +183,10 @@ class Biome {
   }
 
   randomGradientRect(x, y, width, height) {
-    let x1 = Math.random() * this.width;
-    let y1 = Math.random() * this.height;
-    let x2 = Math.random() * this.width;
-    let y2 = Math.random() * this.height;
+    let x1 = this.randRange(0, this.width);
+    let y1 = this.randRange(0, this.height);
+    let x2 = this.randRange(0, this.width);
+    let y2 = this.randRange(0, this.height);
 
     let gradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
 
@@ -200,7 +200,6 @@ class Biome {
 
   drawWater() {
     let x1 = 0;
-    // let y1 = this.height * Math.random();
     let y1 = this.height - (this.height * this.waterLevel);
     let x2 = 0;
     let y2 = this.height;
@@ -226,7 +225,6 @@ class Biome {
     this.beachSize = 7;
 
     let x1 = 0;
-    // let y1 = this.height * Math.random();
     let y1 = this.height - (this.height * this.waterLevel) - this.beachSize;
     let x2 = 0;
     let y2 = this.height - (this.height * this.waterLevel);
@@ -248,7 +246,6 @@ class Biome {
     this.inlandSize = 100;
 
     let x1 = 0;
-    // let y1 = this.height * Math.random();
     let y1 = this.height - (this.height * this.waterLevel) - this.inlandSize;
     let x2 = 0;
     let y2 = this.height - (this.height * this.waterLevel);
@@ -267,9 +264,9 @@ class Biome {
   }
 
   randomGradientCircle() {
-    let x1 = Math.random() * this.width;
-    let y1 = Math.random() * this.height - this.height * this.waterLevel;
-    let size = Math.random()*this.circleSize+1;
+    let x1 = this.randRange(0, this.width);
+    let y1 = this.randRange(0, this.height) - this.height * this.waterLevel;
+    let size = this.randRange(1, this.circleSize);
     let x2 = x1;
     let y2 = y1;
     let r1 = 0;
@@ -292,7 +289,7 @@ class Biome {
     // let sOffset = 0;
     let hOffset = 0.0;
     let range = 0.5;
-    let n = Math.random();
+    let n = this.randRange(0,1);
     if (n < 0.33) {
       hOffset = 0.0 + this.randRange(-range, range);
     } else if (n < 0.66) {
@@ -314,7 +311,7 @@ class Biome {
 
     let hOffset = 0.0;
     let range = 0.1;
-    let n = Math.random();
+    let n = this.randRange(0,1);
     if (n < 0.33) {
       hOffset = 0.0 + this.randRange(-range, range);
     } else if (n < 0.66) {
@@ -339,7 +336,7 @@ class Biome {
 
     let hOffset = 0.0;
     let range = 0.1;
-    let n = Math.random();
+    let n = this.randRange(0,1);
     if (colorOffset == 0) {
       hOffset = 0.0 + this.randRange(-range, range);
     } else if (colorOffset == 1){

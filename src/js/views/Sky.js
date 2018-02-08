@@ -71,7 +71,7 @@ class Sky {
 
   render(props) {
 
-    this.seed = Math.random() * 1000;
+    this.seed = this.randRange(0, 1000);
 
     this.skyMap.render({
       seed: this.seed,
