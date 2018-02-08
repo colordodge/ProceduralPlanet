@@ -16,7 +16,7 @@ class NebulaeGradient {
     // let l = 0.5;
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.5)
-    console.log("nebula colorAngle = " + this.colorAngle);
+    // console.log("nebula colorAngle = " + this.colorAngle);
 
     // this.generateTexture();
   }

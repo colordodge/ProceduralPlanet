@@ -39,6 +39,8 @@
     "glslify": "^5.0.0",
     "glslify-fancy-imports": "^1.0.1",
     "glslify-hex": "^2.0.1",
+    "seed-random": "^2.2.0",
+    "seedrandom": "^2.4.3",
     "serve": "^6.4.8",
     "simplex-noise": "^2.3.0",
     "stats-js": "^1.0.0-alpha1",

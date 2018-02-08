@@ -429,6 +429,7 @@ void main() {
 	nColor += vec3(n2);
 
 
+  c2 = pow(c2, 2.0);
 	vec3 nebula = mix(starsColor, nColor, c2);
 	nebula *= 1.0;
 

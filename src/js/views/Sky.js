@@ -76,9 +76,9 @@ class Sky {
     this.skyMap.render({
       seed: this.seed,
       resolution: this.resolution,
-        res1: this.randRange(0.1, 2.0),
-      res2: this.randRange(0.1, 2.0),
-      resMix: this.randRange(0.1, 2.0),
+        res1: this.randRange(0.5, 1.5),
+      res2: this.randRange(0.5, 1.5),
+      resMix: this.randRange(0.5, 1.5),
       mixScale: 0.5,
       color1: this.color1,
       color2: this.color2,

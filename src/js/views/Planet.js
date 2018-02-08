@@ -15,21 +15,24 @@ import Sky from 'views/Sky.js'
 import Sun from 'views/Sun.js'
 import Glow from 'views/Glow.js'
 import NebulaeGradient from 'views/NebulaeGradient.js'
+import seedrandom from 'seedrandom'
+
 
 class Planet {
 
   constructor() {
+
+    this.initSeed();
+
     this.view = new THREE.Object3D();
 
     this.materials = [];
     this.roughness = 0.8;
     this.metalness = 0.5;
     this.normalScale = 3.0;
-
-
     this.resolution = 1024;
     this.size = 1000;
-    this.waterLevel = Math.random()* 0.8;
+    this.waterLevel = 0.0;
     // this.waterLevel = 0.5;
 
     this.heightMaps = [];
@@ -97,6 +100,13 @@ class Planet {
 
   }
 
+  initSeed() {
+    // this.seedString = seedrandom("jason", {global: true});
+    // this.seed = Math.random() * 1000.0;
+    // console.log("seedString = " + this.seedString);
+    // console.log("seed = " + this.seed);
+  }
+
   generateAll() {
     this.autoGenCountCurrent = 0;
     this.renderScene();
@@ -140,15 +150,34 @@ class Planet {
 
   renderScene() {
 
-    this.seed = Math.random() * 1000;
-    console.log("seed = " + this.seed);
-    this.waterLevel = Math.random()* 0.6;
+    // this.seedString = seedrandom("daycare", {global: true});
+    // console.log("seedString = " + this.seedString);
+
+    this.seed = Math.ceil(Math.random() * 100000.0);
+    // this.seed = 0.1;
+    // console.log("seed = " + this.seed);
+
+
+
+
+    this.waterLevel = this.randRange(0.1, 0.6);
     // this.clouds.resolution = this.resolution;
+
+
 
     this.updateNormalScaleForRes(this.resolution);
 
     this.renderBiomeTexture();
+
+    // this.seedString = seedrandom("daycare", {global: true});
+
+    let r = Math.random();
+    console.log("number 1 = " + r);
+
     this.renderNebulaeGradient();
+
+
+
 
     this.sky.resolution = this.resolution;
     this.sky.color1 = this.biome.randomNebulaeColor(0);
@@ -161,6 +190,8 @@ class Planet {
     // this.clouds.color = this.atmosphere.color;
 
     window.renderQueue.start();
+
+
 
     this.heightMap.render({
       seed: this.seed,
@@ -212,6 +243,8 @@ class Planet {
       nebulaeMap: this.nebulaeGradient.texture
     });
 
+
+
     window.renderQueue.addCallback(() => {
       this.updateMaterial();
     });
@@ -240,7 +273,7 @@ class Planet {
 
   renderNebulaeGradient() {
     this.nebulaeGradient = new NebulaeGradient();
-    this.nebulaeGradient.baseColor = this.biome.baseColor;
+    // this.nebulaeGradient.baseColor = this.biome.baseColor;
     // this.nebulaeGradient.colorAngle = this.biome.colorAngle;
     this.nebulaeGradient.generateTexture();
   }

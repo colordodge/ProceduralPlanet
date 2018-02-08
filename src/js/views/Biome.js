@@ -6,8 +6,6 @@ class Biome {
   constructor(props) {
     // this.waterLevel = Math.random();
     this.waterLevel = props.waterLevel;
-    this.desatAmount = Math.random();
-
 
     let h = this.randRange(0.0, 1.0);
     let s = this.randRange(0.0, 0.5);
@@ -16,7 +14,12 @@ class Biome {
     // let l = 0.5;
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.5)
-    console.log("biome colorAngle = " + this.colorAngle);
+    // console.log("biome colorAngle = " + this.colorAngle);
+
+    this.satRange = this.randRange(0.2, 0.5);
+    this.lightRange = this.randRange(0.2, 0.5);
+
+
 
     this.generateTexture();
   }
@@ -32,7 +35,6 @@ class Biome {
     this.height = this.canvas.height;
     this.ctx = this.canvas.getContext("2d");
 
-    this.desaturation = 0.5;
 
 
     this.drawBase();
@@ -49,24 +51,29 @@ class Biome {
 
 
 
-    // if (Math.random() > 0.7) {
-    //   this.drawRivers();
-    // }
-
     this.drawDetail();
 
-    this.drawInland();
-    this.drawBeach();
 
-    if (Math.random() > 0.5) {}
+
+    this.drawInland();
+
+
+
+
+    this.drawBeach();
 
 
 
     this.drawWater();
 
 
+
+
     // document.body.appendChild(this.canvas);
     this.texture = new THREE.CanvasTexture(this.canvas);
+
+    // let r = Math.random();
+    // console.log("number 1 = " + r);
   }
 
   drawBase() {
@@ -316,8 +323,8 @@ class Biome {
       hOffset = -this.colorAngle + this.randRange(-range, range);
     }
 
-    let sOffset = this.randRange(-0.3, 0.3);
-    let lOffset = this.randRange(-0.4, 0.4);
+    let sOffset = this.randRange(-this.satRange, this.satRange);
+    let lOffset = this.randRange(-this.lightRange, this.lightRange);
 
     newColor.offsetHSL(hOffset, sOffset, lOffset);
 
