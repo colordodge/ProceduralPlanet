@@ -22,6 +22,7 @@ class Planet {
 
   constructor() {
 
+    this.seedString = "Scarlett";
     this.initSeed();
 
     this.view = new THREE.Object3D();
@@ -104,7 +105,7 @@ class Planet {
   }
 
   initSeed() {
-
+    window.rng = seedrandom(this.seedString);
   }
 
   generateAll() {
@@ -150,28 +151,15 @@ class Planet {
 
   renderScene() {
 
-    // this.seedString = seedrandom("daycare", {global: true});
-    // console.log("seedString = " + this.seedString);
+    this.initSeed();
 
     this.seed = this.randRange(0, 1) * 1000.0;
-    // this.seed = 0.1;
-    // console.log("seed = " + this.seed);
-
-
     this.waterLevel = this.randRange(0.1, 0.6);
     // this.clouds.resolution = this.resolution;
 
-
-
     this.updateNormalScaleForRes(this.resolution);
-
     this.renderBiomeTexture();
-
-    // this.seedString = seedrandom("daycare", {global: true});
-
-
     this.renderNebulaeGradient();
-
 
     this.sky.resolution = this.resolution;
     this.sky.color1 = this.biome.randomNebulaeColor(0);
@@ -184,7 +172,6 @@ class Planet {
     // this.clouds.color = this.atmosphere.color;
 
     window.renderQueue.start();
-
 
 
     this.heightMap.render({
@@ -310,7 +297,7 @@ class Planet {
 
   randRange(low, high) {
     let range = high - low;
-    let n = Math.random() * range;
+    let n = window.rng() * range;
     return low + n;
   }
 

@@ -97,7 +97,7 @@ class NebulaeGradient {
 
   randRange(low, high) {
     let range = high - low;
-    let n = Math.random() * range;
+    let n = window.rng() * range;
     return low + n;
   }
 

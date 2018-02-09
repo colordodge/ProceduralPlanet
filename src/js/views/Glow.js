@@ -74,9 +74,9 @@ class Glow {
 
   randomizeColor() {
     this.color = new THREE.Color();
-    this.color.r = Math.random();
-    this.color.g = Math.random();
-    this.color.b = Math.random();
+    this.color.r = window.rng();
+    this.color.g = window.rng();
+    this.color.b = window.rng();
   }
 }
 
