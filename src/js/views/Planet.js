@@ -41,6 +41,17 @@ class Planet {
     this.normalMaps = [];
     this.roughnessMaps = [];
 
+    let matFolder = gui.addFolder('Material');
+
+    this.roughnessControl = matFolder.add(this, "roughness", 0.0, 1.0);
+    this.roughnessControl.onChange(value => { this.updateMaterial(); });
+
+    this.metalnessControl = matFolder.add(this, "metalness", 0.0, 1.0);
+    this.metalnessControl.onChange(value => { this.updateMaterial(); });
+
+    this.normalScaleControl = matFolder.add(this, "normalScale", -3.0, 6.0).listen();
+    this.normalScaleControl.onChange(value => { this.updateMaterial(); });
+
     this.createScene();
     this.createSky();
     // this.createSun();
@@ -54,21 +65,13 @@ class Planet {
     this.rotate = true;
     this.autoGenerate = false;
     this.autoGenCountCurrent = 0;
-    this.autoGenCountMax = 5 * 60 * 60;
+    this.autoGenCountMax = 1 * 60 * 60;
 
     window.gui.add(this, "rotate");
-    window.gui.add(this, "waterLevel", 0.0, 1.0);
 
     this.resolutionControl = window.gui.add(this, "resolution", [256, 512, 1024, 2048, 4096]);
 
-    this.roughnessControl = window.gui.add(this, "roughness", 0.0, 1.0);
-    this.roughnessControl.onChange(value => { this.updateMaterial(); });
 
-    this.metalnessControl = window.gui.add(this, "metalness", 0.0, 1.0);
-    this.metalnessControl.onChange(value => { this.updateMaterial(); });
-
-    this.normalScaleControl = window.gui.add(this, "normalScale", -3.0, 6.0).listen();
-    this.normalScaleControl.onChange(value => { this.updateMaterial(); });
 
     window.gui.add(this, "autoGenerate");
     window.gui.add(this, "generateAll");
@@ -101,7 +104,7 @@ class Planet {
   }
 
   initSeed() {
-    
+
   }
 
   generateAll() {

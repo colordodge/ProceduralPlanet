@@ -24,8 +24,8 @@ class AbstractApplication {
         document.body.appendChild( this._renderer.domElement );
 
         // lights
-        let ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-        this._scene.add(ambientLight);
+        this.ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        this._scene.add(this.ambientLight);
 
         this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.3 );
         this.directionalLight.position.set( -1, 1.0, 1 );
@@ -63,20 +63,33 @@ class AbstractApplication {
         // gui
         window.gui = new dat.GUI();
 
+        let lightFolder = gui.addFolder('Lighting');
+
 
         this.sunColor = {r:255, g:255, b:255};
-        this.dirLightControl = window.gui.addColor(this, "sunColor").onChange(value => {
+        this.dirLightControl = lightFolder.addColor(this, "sunColor").onChange(value => {
           this.directionalLight.color.r = this.sunColor.r / 255;
           this.directionalLight.color.g = this.sunColor.g / 255;
           this.directionalLight.color.b = this.sunColor.b / 255;
         });
 
-        window.gui.add(this.directionalLight, "intensity", 0.0, 3.0);
+        lightFolder.add(this.directionalLight, "intensity", 0.0, 3.0);
         // this.dirLightControl.onChange(value => {});
 
-        window.gui.add(this._controls, "autoRotate");
+        this.ambientColor = {r:255, g:255, b:255};
+        this.ambientControl = lightFolder.addColor(this, "ambientColor").onChange(value => {
+          this.ambientLight.color.r = this.ambientColor.r / 255;
+          this.ambientLight.color.g = this.ambientColor.g / 255;
+          this.ambientLight.color.b = this.ambientColor.b / 255;
+        });
 
-        this.fovControl = window.gui.add(this._camera, "fov", 20, 120);
+        lightFolder.add(this.ambientLight, "intensity", 0.0, 2.0);
+
+        let cameraFolder = gui.addFolder('Camera');
+
+        cameraFolder.add(this._controls, "autoRotate");
+
+        this.fovControl = cameraFolder.add(this._camera, "fov", 20, 120);
         this.fovControl.onChange(value => { this._camera.updateProjectionMatrix() });
 
         // stats
