@@ -16,6 +16,7 @@ import Sun from 'views/Sun.js'
 import Glow from 'views/Glow.js'
 import NebulaeGradient from 'views/NebulaeGradient.js'
 import seedrandom from 'seedrandom'
+import randomString from 'crypto-random-string'
 
 
 class Planet {
@@ -60,7 +61,7 @@ class Planet {
     // this.createGlow();
     this.createAtmosphere();
 
-    this.renderScene();
+    this.loadSeedFromURL();
 
 
     this.rotate = true;
@@ -71,17 +72,22 @@ class Planet {
     window.gui.add(this, "rotate");
 
     this.resolutionControl = window.gui.add(this, "resolution", [256, 512, 1024, 2048, 4096]);
-
-
+    this.resolutionControl.onChange(value => { this.regenerate(); });
 
     window.gui.add(this, "autoGenerate");
-    window.gui.add(this, "generateAll");
+    window.gui.add(this, "seedString").listen();
+    window.gui.add(this, "regenerate");
+    window.gui.add(this, "randomize");
 
     document.addEventListener('keydown', (event) => {
       if (event.keyCode == 32) {
-        this.generateAll();
+        this.randomize();
       }
     });
+
+    window.onpopstate = (event) => {
+      this.loadSeedFromURL();
+    };
 
   }
 
@@ -96,7 +102,7 @@ class Planet {
     if (this.autoGenerate) {
       this.autoGenCountCurrent++;
       if (this.autoGenCountCurrent > this.autoGenCountMax) {
-        this.generateAll();
+        this.randomize();
       }
     }
 
@@ -108,7 +114,27 @@ class Planet {
     window.rng = seedrandom(this.seedString);
   }
 
-  generateAll() {
+  loadSeedFromURL() {
+    this.seedString = this.getParameterByName("seed");
+    if (this.seedString) {
+      console.log("seed string exists");
+      this.regenerate();
+    } else {
+      console.log("no seed string");
+      this.randomize();
+    }
+
+  }
+
+  regenerate() {
+    this.autoGenCountCurrent = 0;
+    this.renderScene();
+  }
+
+  randomize() {
+    this.seedString = randomString(10);
+    let url = this.updateQueryString("seed", this.seedString);
+    window.history.pushState({seed: this.seedString}, this.seedString, url);
     this.autoGenCountCurrent = 0;
     this.renderScene();
   }
@@ -319,6 +345,46 @@ class Planet {
   	geometry.lineDistancesNeedUpdate = true;
   	// geometry.buffersNeedUpdate = true;
   	geometry.groupsNeedUpdate = true;
+  }
+
+  updateQueryString(key, value, url) {
+    if (!url) url = window.location.href;
+    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+        hash;
+
+    if (re.test(url)) {
+        if (typeof value !== 'undefined' && value !== null)
+            return url.replace(re, '$1' + key + "=" + value + '$2$3');
+        else {
+            hash = url.split('#');
+            url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+            if (typeof hash[1] !== 'undefined' && hash[1] !== null)
+                url += '#' + hash[1];
+            return url;
+        }
+    }
+    else {
+        if (typeof value !== 'undefined' && value !== null) {
+            var separator = url.indexOf('?') !== -1 ? '&' : '?';
+            hash = url.split('#');
+            url = hash[0] + separator + key + '=' + value;
+            if (typeof hash[1] !== 'undefined' && hash[1] !== null)
+                url += '#' + hash[1];
+            return url;
+        }
+        else
+            return url;
+    }
+  }
+
+  getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 }

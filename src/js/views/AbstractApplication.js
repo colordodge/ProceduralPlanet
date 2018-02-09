@@ -27,7 +27,7 @@ class AbstractApplication {
         this.ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
         this._scene.add(this.ambientLight);
 
-        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.3 );
+        this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.6 );
         this.directionalLight.position.set( -1, 1.0, 1 );
         this._scene.add(this.directionalLight);
 
