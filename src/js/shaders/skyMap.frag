@@ -279,8 +279,10 @@ float invRidgedNoise(vec3 pos, float frq, float seed) {
 		gain *= 2.0;
 	}
 
+  n = 1.0 - n;
 	n = pow(n, 2.0);
-	n = 1.0 - n;
+  n = 1.0 - n;
+
 
 	return n;
 }
@@ -368,7 +370,7 @@ void main() {
 	float y = 1.0 - vUv.y;
 	vec3 sphericalCoord = getSphericalCoord(index, x*resolution, y*resolution, resolution);
 
-
+  // create base stars
 	vec2 F = worley3D((sphericalCoord * 200.0) + vec3(seed), 1.0, true);
   float F1 = F.x;
   float F2 = F.y;
@@ -378,36 +380,21 @@ void main() {
 	n *= 1.2;
 	n = pow(n, 4.0);
 
-	// float t = 0.4;
-	// if (n < t) {
-	// 	n = 0.0;
-	// } else {
-	// 	n = n - t;
-	// 	n *= 1.0/t;
-	// 	n = pow(n, 1.0);
-	// }
-
-	// n *= 0.8;
-
-
 
 	float sub1 = baseNoise(sphericalCoord, 0.003, seed+32.284);
 	n *= sub1;
 	vec3 starsColor = vec3(n);
 
-
+  // create nebula
 	float nebulaStrength = 0.8;
 	float c1 = cloudNoise(sphericalCoord, res1, seed);
-	float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.3), res2, seed+10.4);
+	float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.2), res2, seed+10.4);
 	c2 = pow(c2, 1.5) * 1.2;
-	// c2 = clamp(c2, 0.0, 1.0);
-
   float c3 = cloudNoise(sphericalCoord, resMix, seed + 61.384);
-
-	// vec3 nColor = texture2D(nebulaeMap, vec2(0.5, c1)).rgb * c1 * c2 * nebulaStrength;
 	vec3 nColor = texture2D(nebulaeMap, vec2(c3, c1)).rgb * c1 * c2 * nebulaStrength;
 
-	// add in large stars to nebulae
+
+	// add in large stars to nebula
 	F = worley3D((sphericalCoord * 150.0) + vec3(seed+35.890), 1.0, true);
 	F1 = F.x;
 	float n2 = F1;
@@ -418,61 +405,9 @@ void main() {
   n2 *= sub1;
 	nColor += vec3(n2);
 
-	// add in a smaller amount of even very big stars
-	F = worley3D((sphericalCoord * 15.0) + vec3(seed+15.890), 1.0, true);
-	F1 = F.x;
-	n2 = F1;
-	n2 = 1.0 - n2;
-	n2 *= 1.1;
-	n2 = pow(n2, 14.0);
-	n2 *= c2;
-	nColor += vec3(n2);
 
-
-  c2 = pow(c2, 2.0);
+  // c2 = pow(c2, 2.0);
 	vec3 nebula = mix(starsColor, nColor, c2);
-	nebula *= 1.0;
 
 	gl_FragColor = vec4(nebula, 1.0);
-
-
-	///////////////////////////
-
-
-	// float nebulaStrength = 0.6;
-  //
-	// float c1 = cloudNoise(sphericalCoord, res1, seed);
-	// float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.3), res2, seed+50.0);
-	// c2 = pow(c2, 3.0);
-	// vec3 nColor = color1 * c1 * nebulaStrength;
-	// vec3 nebula = mix(starsColor, nColor, c2);
-  //
-	// float mod = -0.0;
-  //
-	// c1 = cloudNoise(sphericalCoord, res1+mod, seed);
-	// c2 = cloudNoise(sphericalCoord + vec3(c1*(res2+mod)*0.3), (res2+mod), seed+50.3);
-	// c2 = pow(c2, 3.0);
-	// nColor = color2 * c1 * nebulaStrength;
-	// nebula += mix(vec3(0.0), nColor, c2);
-  //
-	// mod = +0.0;
-  //
-	// c1 = cloudNoise(sphericalCoord, res1+mod, seed);
-	// c2 = cloudNoise(sphericalCoord + vec3(c1*(res2+mod)*0.3), (res2+mod), seed+50.6);
-	// c2 = pow(c2, 3.0);
-	// nColor = color3 * c1 * nebulaStrength;
-	// nebula += mix(vec3(0.0), nColor, c2);
-  //
-	// vec3 newColor = nebula;
-  //
-	// newColor *= 1.0;
-  //
-	// gl_FragColor = vec4(newColor, 1.0);
-
-
-	////////////////////////////////////////
-
-
-
-
 }

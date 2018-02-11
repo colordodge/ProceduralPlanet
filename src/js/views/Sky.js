@@ -23,22 +23,6 @@ class Sky {
     this.setup();
     // this.render();
 
-
-
-    // this.rotate = true;
-    //
-    // window.gui.add(this, "rotate");
-    // window.gui.add(this, "waterLevel", 0.0, 1.0);
-    //
-    // this.roughnessControl = window.gui.add(this, "roughness", 0.0, 1.0);
-    // this.roughnessControl.onChange(value => { this.updateMaterial(); });
-    //
-    // this.metalnessControl = window.gui.add(this, "metalness", 0.0, 1.0);
-    // this.metalnessControl.onChange(value => { this.updateMaterial(); });
-    //
-    // this.emissiveIntensityControl = window.gui.add(this, "emissiveIntensity", 0.0, 3.0);
-    // this.emissiveIntensityControl.onChange(value => { this.updateMaterial(); });
-
   }
 
   update() {
