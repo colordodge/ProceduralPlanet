@@ -54,6 +54,33 @@ class Planet {
     this.normalScaleControl = matFolder.add(this, "normalScale", -3.0, 6.0).listen();
     this.normalScaleControl.onChange(value => { this.updateMaterial(); });
 
+    // debug options
+    this.displayMap = "textureMap";
+    let debugFolder = gui.addFolder('Debug');
+    this.displayMapControl = debugFolder.add(this, "displayMap", ["textureMap", "heightMap", "moistureMap", "normalMap"]);
+    this.displayMapControl.onChange(value => { this.updateMaterial(); });
+
+    this.showBiomeMap = false;
+    this.showBiomeMapControl = debugFolder.add(this, "showBiomeMap");
+    this.showBiomeMapControl.onChange(value => {
+      if (this.biome) {
+        this.biome.toggleCanvasDisplay(value);
+      }
+     });
+
+     this.showNebulaMap = false;
+     this.showNebulaMapControl = debugFolder.add(this, "showNebulaMap");
+     this.showNebulaMapControl.onChange(value => {
+       if (this.nebulaeGradient) {
+         this.nebulaeGradient.toggleCanvasDisplay(value);
+       }
+      });
+
+
+
+    this.biome = new Biome();
+    this.nebulaeGradient = new NebulaeGradient();
+
     this.createScene();
     this.createSky();
     // this.createSun();
@@ -64,10 +91,7 @@ class Planet {
     this.loadSeedFromURL();
 
 
-    this.displayMap = "textureMap";
-    let debugFolder = gui.addFolder('Debug');
-    this.displayMapControl = debugFolder.add(this, "displayMap", ["textureMap", "heightMap", "moistureMap", "normalMap"]);
-    this.displayMapControl.onChange(value => { this.updateMaterial(); });
+
 
 
     this.rotate = true;
@@ -303,13 +327,10 @@ class Planet {
   }
 
   renderBiomeTexture() {
-    this.biome = new Biome({waterLevel: this.waterLevel});
+    this.biome.generateTexture({waterLevel: this.waterLevel});
   }
 
   renderNebulaeGradient() {
-    this.nebulaeGradient = new NebulaeGradient();
-    // this.nebulaeGradient.baseColor = this.biome.baseColor;
-    // this.nebulaeGradient.colorAngle = this.biome.colorAngle;
     this.nebulaeGradient.generateTexture();
   }
 

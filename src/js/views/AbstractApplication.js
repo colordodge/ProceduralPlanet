@@ -65,7 +65,6 @@ class AbstractApplication {
 
         let lightFolder = gui.addFolder('Lighting');
 
-
         this.sunColor = {r:255, g:255, b:255};
         this.dirLightControl = lightFolder.addColor(this, "sunColor").onChange(value => {
           this.directionalLight.color.r = this.sunColor.r / 255;

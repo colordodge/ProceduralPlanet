@@ -5,18 +5,6 @@ class NebulaeGradient {
 
   constructor() {
 
-    let h = this.randRange(0.0, 1.0);
-    let s = this.randRange(0.3, 0.7);
-    let l = this.randRange(0.4, 0.6);
-
-    this.baseColor = new THREE.Color().setHSL(h, s, l);
-    this.colorAngle = this.randRange(0.0, 0.2)
-    // console.log("nebula colorAngle = " + this.colorAngle);
-
-    // this.generateTexture();
-  }
-
-  generateTexture() {
     this.canvas = document.createElement("canvas");
     this.canvas.id = "nebulaeCanvas";
     this.canvas.width = 512;
@@ -27,6 +15,18 @@ class NebulaeGradient {
     this.height = this.canvas.height;
     this.ctx = this.canvas.getContext("2d");
 
+    document.body.appendChild(this.canvas);
+    this.toggleCanvasDisplay(false);
+  }
+
+  generateTexture() {
+
+    let h = this.randRange(0.0, 1.0);
+    let s = this.randRange(0.3, 0.7);
+    let l = this.randRange(0.4, 0.6);
+    this.baseColor = new THREE.Color().setHSL(h, s, l);
+    this.colorAngle = this.randRange(0.0, 0.2);
+
     this.fillBaseColor();
 
     let numStrips = Math.round(this.randRange(20, 100));
@@ -35,8 +35,16 @@ class NebulaeGradient {
       this.randomGradientCircle();
     }
 
-    // document.body.appendChild(this.canvas);
     this.texture = new THREE.CanvasTexture(this.canvas);
+
+  }
+
+  toggleCanvasDisplay(value) {
+    if (value) {
+      this.canvas.style.display = "block";
+    } else {
+      this.canvas.style.display = "none";
+    }
   }
 
   fillBaseColor() {

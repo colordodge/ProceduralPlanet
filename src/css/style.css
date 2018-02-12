@@ -6,6 +6,7 @@ body {
     margin: 0px;
     padding: 0;
     overflow: hidden;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 #biomeCanvas {
@@ -37,4 +38,36 @@ a#magic-window {
     display: block;
     color: white;
     margin-top: 1em;
+}
+
+#loadingBarHolder {
+  position: absolute;
+
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+
+  width: 25%;
+  height: 10%;
+
+  border: 1px solid #222222;
+  padding: 20px;
+  padding-top: 30px;
+  background-color: #111111;
+  z-index: 2000;
+}
+
+#loadingBarBase {
+  width: 100%;
+  height: 50%;
+  margin-top: 10px;
+  background-color: #222222;
+}
+
+#loadingBar {
+  width: 50%;
+  height: 100%;
+  background-color: #444444;
 }

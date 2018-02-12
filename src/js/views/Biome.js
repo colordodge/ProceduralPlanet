@@ -3,29 +3,8 @@ import * as THREE from 'three'
 
 class Biome {
 
-  constructor(props) {
+  constructor() {
 
-    this.waterLevel = props.waterLevel;
-
-    let h = this.randRange(0.0, 1.0);
-    let s = this.randRange(0.0, 0.5);
-    // let s = 1;
-    let l = this.randRange(0.3, 0.5);
-    // let l = 0.5;
-    this.baseColor = new THREE.Color().setHSL(h, s, l);
-    this.colorAngle = this.randRange(0.0, 0.5)
-    // console.log("biome colorAngle = " + this.colorAngle);
-
-    this.satRange = this.randRange(0.3, 0.5);
-    this.lightRange = this.randRange(0.3, 0.5);
-
-    this.circleSize = this.randRange(30, 300)
-
-
-    this.generateTexture();
-  }
-
-  generateTexture() {
     this.canvas = document.createElement("canvas");
     this.canvas.id = "biomeCanvas";
     this.canvas.width = 512;
@@ -36,11 +15,26 @@ class Biome {
     this.height = this.canvas.height;
     this.ctx = this.canvas.getContext("2d");
 
+    document.body.appendChild(this.canvas);
+    this.toggleCanvasDisplay(false);
+
+  }
+
+  generateTexture(props) {
+
+    this.waterLevel = props.waterLevel;
+
+    let h = this.randRange(0.0, 1.0);
+    let s = this.randRange(0.0, 0.5);
+    let l = this.randRange(0.3, 0.5);
+    this.baseColor = new THREE.Color().setHSL(h, s, l);
+    this.colorAngle = this.randRange(0.0, 0.5)
+    this.satRange = this.randRange(0.3, 0.5);
+    this.lightRange = this.randRange(0.3, 0.5);
+    this.circleSize = this.randRange(30, 300);
 
 
     this.drawBase();
-
-
 
     // circles
     let numCircles = Math.round(this.randRange(10, 100));
@@ -49,31 +43,21 @@ class Biome {
       this.randomGradientCircle();
     }
 
-
-
-
     this.drawDetail();
-
-
-
     this.drawInland();
-
-
-
-
     this.drawBeach();
-
-
-
     this.drawWater();
 
 
-
-
-    // document.body.appendChild(this.canvas);
     this.texture = new THREE.CanvasTexture(this.canvas);
+  }
 
-
+  toggleCanvasDisplay(value) {
+    if (value) {
+      this.canvas.style.display = "block";
+    } else {
+      this.canvas.style.display = "none";
+    }
   }
 
   drawBase() {
