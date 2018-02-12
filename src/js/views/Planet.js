@@ -59,9 +59,15 @@ class Planet {
     // this.createSun();
     // this.createClouds();
     // this.createGlow();
-    // this.createAtmosphere();
+    this.createAtmosphere();
 
     this.loadSeedFromURL();
+
+
+    this.displayMap = "textureMap";
+    let debugFolder = gui.addFolder('Debug');
+    this.displayMapControl = debugFolder.add(this, "displayMap", ["textureMap", "heightMap", "moistureMap", "normalMap"]);
+    this.displayMapControl.onChange(value => { this.updateMaterial(); });
 
 
     this.rotate = true;
@@ -97,7 +103,7 @@ class Planet {
       this.ground.rotation.y += 0.0005;
       // this.clouds.view.rotation.y += 0.0007;
     }
-    // this.atmosphere.update();
+    this.atmosphere.update();
     // this.glow.update();
 
     if (this.autoGenerate) {
@@ -200,7 +206,7 @@ class Planet {
     this.sky.color3 = this.biome.randomNebulaeColor(2);
 
 
-    // this.atmosphere.randomizeColor();
+    this.atmosphere.randomizeColor();
     // this.clouds.randomizeColor();
     // this.clouds.color = this.atmosphere.color;
 
@@ -270,12 +276,27 @@ class Planet {
       material.roughness = this.roughness;
       material.metalness = this.metalness;
 
-      // material.map = this.heightMaps[i];
-
-      material.map = this.textureMaps[i];
-      material.normalMap = this.normalMaps[i];
-      material.normalScale = new THREE.Vector2(this.normalScale, this.normalScale);
-      material.roughnessMap = this.roughnessMaps[i];
+      if (this.displayMap == "textureMap") {
+        material.map = this.textureMaps[i];
+        material.normalMap = this.normalMaps[i];
+        material.normalScale = new THREE.Vector2(this.normalScale, this.normalScale);
+        material.roughnessMap = this.roughnessMaps[i];
+      }
+      else if (this.displayMap == "heightMap") {
+        material.map = this.heightMaps[i];
+        material.normalMap = null;
+        material.roughnessMap = null;
+      }
+      else if (this.displayMap == "moistureMap") {
+        material.map = this.moistureMaps[i];
+        material.normalMap = null;
+        material.roughnessMap = null;
+      }
+      else if (this.displayMap == "normalMap") {
+        material.map = this.normalMaps[i];
+        material.normalMap = null;
+        material.roughnessMap = null;
+      }
 
       material.needsUpdate = true;
     }

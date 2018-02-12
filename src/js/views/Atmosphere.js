@@ -9,17 +9,17 @@ class Atmosphere {
 
     this.time = 0.0;
 
-    // this.atmo1 = 0.5;
-    // this.atmo2 = 0.5;
-    // this.atmo3 = 1.0;
-    // this.atmo4 = 0.5;
-    // this.atmo5 = 0.1;
+    this.atmo1 = 0.5;
+    this.atmo2 = 0.5;
+    this.atmo3 = 1.0;
+    this.atmo4 = 0.5;
+    this.atmo5 = 0.1;
 
-    this.atmo1 = 0.23;
-    this.atmo2 = 0.55;
-    this.atmo3 = 2.0;
-    this.atmo4 = 0.46;
-    this.atmo5 = 0.36;
+    // this.atmo1 = 0.23;
+    // this.atmo2 = 0.55;
+    // this.atmo3 = 2.0;
+    // this.atmo4 = 0.46;
+    // this.atmo5 = 0.36;
 
     // this.randomizeColor();
     this.color = new THREE.Color(0x00ffff);
