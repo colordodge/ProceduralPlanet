@@ -107,6 +107,26 @@ float ridgedNoise(vec3 pos, float frq, float seed) {
 	return n;
 }
 
+float billowNoise(vec3 pos, float frq, float seed) {
+	const int octaves = 16;
+	float amp = 0.5;
+
+	float n = 0.0;
+	float gain = 1.0;
+	for(int i=0; i<octaves; i++) {
+		n +=  simplexRidged(vec3(pos.x*gain/frq, 2.0*pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
+		gain *= 2.0;
+	}
+
+
+
+	n = 1.0-n;
+	n = pow(n, 3.0);
+	n = 1.0-n;
+
+	return n;
+}
+
 float cloud(vec3 pos, float seed) {
 	float n = noise(vec4(pos, seed));
 	// n = sin(n*4.0 * cos(n*2.0));
@@ -134,7 +154,8 @@ float cloudNoise(vec3 pos, float frq, float seed) {
 	// n = pow(n, 5.0);
 
 	n = 1.0-n;
-	n = pow(n, mixScale);
+	// n = pow(n, mixScale);
+	n = pow(n, 1.0);
 	n = 1.0-n;
 
 	return n;
@@ -147,44 +168,17 @@ void main() {
 
 
 	float n = cloudNoise(sphericalCoord, res1, seed);
-	float n2 = cloudNoise(sphericalCoord + vec3(n*0.25), res2, seed+0.2);
+	float n3 = cloudNoise(sphericalCoord, res2, seed+24.975);
+	float n2 = cloudNoise(sphericalCoord + vec3(n*0.25), 1.0+n3, seed+10.2);
 	gl_FragColor = vec4(vec3(n2), 1.0);
 
-	// float n1 = ridgedNoise(sphericalCoord, res1, seed);
-	// n1 = 1.0-n1;
-	// n1 = pow(n1, 1.0);
-	// n1 = 1.0-n1;
 
-	// float n2 = ridgedNoise(sphericalCoord, res2, seed+36.0);
-	// float n3 = ridgedNoise(sphericalCoord, resMix, seed+46.0);
-	// float n = mix(n1, n2, n3);
 
-	// float maskN = baseNoise(sphericalCoord, mixScale, seed+36.0);
-
-	// float n3 = max(n1, n2);
-
-	// float nMix = ridgedNoise(sphericalCoord, resMix, seed+13.0);
-	// float n = mix(n3, 0.0, nMix*mixScale);
-
-	// n = n-(1.0-maskN);
-	// float n = n1 * sin(n2+sphericalCoord.x) * 0.3;
-
-	// if (n > 0.3) {
-	// 	n = (n - 0.5) * 3.0;
-	// 	// n = pow(n, 2.0);
-	// } else {
-	// 	// n = 0.0;
-	// }
-
-	// n = pow(n, 3.0);
-
-	// if (n > 1.0) {
-	// 	n = 1.0 - (n-1.0);
-	// }
+	// float n = billowNoise(sphericalCoord, 1.0, seed);
+	// float n2 = billowNoise(sphericalCoord, 1.0, seed+23.947);
+	// float n2 = cloudNoise(sphericalCoord + vec3(n*0.25), res2, seed+10.2);
+	// gl_FragColor = vec4(vec3(n), n2);
 
 
 
-
-	// gl_FragColor = vec4(vec3(n), 1.0);
-	// gl_FragColor = vec4(color, n);
 }

@@ -11,14 +11,14 @@ class Clouds {
     this.roughness = 0.8;
     this.metalness = 0.5;
     this.normalScale = 5.0;
-    this.clouds = 0.0;
+    this.clouds = 1.0;
 
 
     this.resolution = 1024;
     this.size = 1002;
 
 
-    this.color = new THREE.Color();
+    this.color = new THREE.Color(0xffffff);
 
     this.cloudColor = [this.color.r*255, this.color.g*255, this.color.b*255];
 
@@ -79,7 +79,7 @@ class Clouds {
       seed: this.seed,
       resolution: this.resolution,
       res1: cloudSize,
-      res2: cloudSize*0.6,
+      res2: this.randRange(0.3, 1.0),
       resMix: this.randRange(0.5, 1.0),
       mixScale: mixScale
     });
@@ -100,7 +100,7 @@ class Clouds {
       material.map = this.cloudMaps[i],
       material.alphaMap = this.cloudMaps[i],
       material.bumpMap = this.cloudMaps[i],
-      material.bumpScale = 0.1,
+      material.bumpScale = 1.0,
       material.color = this.color
     }
   }
