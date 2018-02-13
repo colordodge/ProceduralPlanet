@@ -23,7 +23,7 @@ void main() {
 	} else {
 		// n = 0.5 - n;
 		// n = 1.0 - (n*0.5);
-		n = 0.9;
+		n = 0.95;
 	}
 
   gl_FragColor = vec4(vec3(n), 1.0);

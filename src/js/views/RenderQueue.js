@@ -36,6 +36,7 @@ class RenderQueue {
 
     let thisTime = Date.now();
     let totalTime = thisTime - this.lastTime;
+
     this.lastTime = thisTime;
 
     this.actions[0]();

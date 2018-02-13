@@ -9,16 +9,16 @@ class AbstractApplication {
 
     constructor(){
 
-        this._camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100000 );
-        this._camera.position.z = 3500;
+        this._camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
+        this._camera.position.z = 2700;
         window.camera = this._camera;
 
         this._scene = new THREE.Scene();
 
         this._renderer = new THREE.WebGLRenderer({antialias: false, alpha: true});
         this._renderer.setPixelRatio( window.devicePixelRatio );
-        // this._renderer.alpha = true;
-        // this._renderer.setPixelRatio( 0.5 );
+
+        // this._renderer.setPixelRatio( 3.0 );
         this._renderer.setSize( window.innerWidth, window.innerHeight );
         window.renderer = this._renderer;
         document.body.appendChild( this._renderer.domElement );

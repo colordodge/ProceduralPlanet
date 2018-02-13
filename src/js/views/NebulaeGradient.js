@@ -88,8 +88,8 @@ class NebulaeGradient {
       hOffset = -this.colorAngle + this.randRange(-range, range);
     }
 
-    let sOffset = this.randRange(-0.3, 0.3);
-    let lOffset = this.randRange(-0.3, 0.3);
+    let sOffset = this.randRange(-0.4, 0.4);
+    let lOffset = this.randRange(-0.4, 0.4);
 
     newColor.offsetHSL(hOffset, sOffset, lOffset);
 

@@ -29,8 +29,8 @@ class Biome {
     let l = this.randRange(0.3, 0.5);
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.5)
-    this.satRange = this.randRange(0.3, 0.5);
-    this.lightRange = this.randRange(0.3, 0.5);
+    this.satRange = this.randRange(0.2, 0.5);
+    this.lightRange = this.randRange(0.2, 0.5);
     this.circleSize = this.randRange(30, 300);
 
 

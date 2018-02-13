@@ -17,6 +17,7 @@ import Glow from 'views/Glow.js'
 import NebulaeGradient from 'views/NebulaeGradient.js'
 import seedrandom from 'seedrandom'
 import randomString from 'crypto-random-string'
+import AtmosphereRing from 'views/AtmosphereRing.js'
 
 
 class Planet {
@@ -57,7 +58,7 @@ class Planet {
     // debug options
     this.displayMap = "textureMap";
     let debugFolder = gui.addFolder('Debug');
-    this.displayMapControl = debugFolder.add(this, "displayMap", ["textureMap", "heightMap", "moistureMap", "normalMap"]);
+    this.displayMapControl = debugFolder.add(this, "displayMap", ["textureMap", "heightMap", "moistureMap", "normalMap", "roughnessMap"]);
     this.displayMapControl.onChange(value => { this.updateMaterial(); });
 
     this.showBiomeMap = false;
@@ -86,7 +87,16 @@ class Planet {
     // this.createSun();
     // this.createClouds();
     // this.createGlow();
+
+    // this.atmosphereRing = new AtmosphereRing();
+    // this.view.add(this.atmosphereRing.view);
+
+
     this.createAtmosphere();
+
+
+
+
 
     this.loadSeedFromURL();
 
@@ -125,9 +135,13 @@ class Planet {
   update() {
     if (this.rotate) {
       this.ground.rotation.y += 0.0005;
-      // this.clouds.view.rotation.y += 0.0007;
+      this.sky.view.rotation.y += 0.0003;
     }
+
     this.atmosphere.update();
+
+
+
     // this.glow.update();
 
     if (this.autoGenerate) {
@@ -138,6 +152,8 @@ class Planet {
     }
 
     this.sky.view.position.copy(window.camera.position);
+
+    // this.atmosphereRing.update();
 
   }
 
@@ -318,6 +334,11 @@ class Planet {
       }
       else if (this.displayMap == "normalMap") {
         material.map = this.normalMaps[i];
+        material.normalMap = null;
+        material.roughnessMap = null;
+      }
+      else if (this.displayMap == "roughnessMap") {
+        material.map = this.roughnessMaps[i];
         material.normalMap = null;
         material.roughnessMap = null;
       }
