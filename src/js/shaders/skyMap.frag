@@ -8,9 +8,6 @@ uniform float res1;
 uniform float res2;
 uniform float resMix;
 uniform float mixScale;
-uniform vec3 color1;
-uniform vec3 color2;
-uniform vec3 color3;
 uniform sampler2D nebulaeMap;
 
 

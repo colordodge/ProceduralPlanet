@@ -16,10 +16,6 @@ class Sky {
 
     this.skyMaps = [];
 
-    this.color1 = new THREE.Color();
-    this.color2 = new THREE.Color();
-    this.color3 = new THREE.Color();
-
     this.setup();
     // this.render();
 

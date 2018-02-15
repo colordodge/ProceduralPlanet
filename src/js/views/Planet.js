@@ -107,14 +107,18 @@ class Planet {
     this.rotate = true;
     this.autoGenerate = false;
     this.autoGenCountCurrent = 0;
-    this.autoGenCountMax = 5 * 60 * 60;
+    this.autoGenTime = 3*60;
+    this.autoGenCountMax = this.autoGenTime * 60;
 
     window.gui.add(this, "rotate");
 
     this.resolutionControl = window.gui.add(this, "resolution", [256, 512, 1024, 2048, 4096]);
     this.resolutionControl.onChange(value => { this.regenerate(); });
 
-    window.gui.add(this, "autoGenerate");
+    debugFolder.add(this, "autoGenerate");
+    this.autoGenTimeControl = debugFolder.add(this, "autoGenTime", 30, 300).step(1);
+    this.autoGenTimeControl.onChange(value => { this.autoGenCountMax = this.autoGenTime * 60 });
+
     this.seedStringControl = window.gui.add(this, "seedString").listen();
     this.seedStringControl.onFinishChange(value => { this.loadSeedFromTextfield(); });
     // window.gui.add(this, "regenerate");
@@ -136,6 +140,7 @@ class Planet {
     if (this.rotate) {
       this.ground.rotation.y += 0.0005;
       this.sky.view.rotation.y += 0.0003;
+      // this.clouds.view.rotation.y += 0.0007;
     }
 
     this.atmosphere.update();
@@ -241,11 +246,6 @@ class Planet {
     this.renderNebulaeGradient();
 
     this.sky.resolution = this.resolution;
-    this.sky.color1 = this.biome.randomNebulaeColor(0);
-    this.sky.color2 = this.biome.randomNebulaeColor(1);
-    this.sky.color3 = this.biome.randomNebulaeColor(2);
-
-
     this.atmosphere.randomizeColor();
     // this.clouds.randomizeColor();
     // this.clouds.color = this.atmosphere.color;
@@ -321,6 +321,7 @@ class Planet {
         material.normalMap = this.normalMaps[i];
         material.normalScale = new THREE.Vector2(this.normalScale, this.normalScale);
         material.roughnessMap = this.roughnessMaps[i];
+        // material.metalnessMap = this.roughnessMaps[i];
       }
       else if (this.displayMap == "heightMap") {
         material.map = this.heightMaps[i];

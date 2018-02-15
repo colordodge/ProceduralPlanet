@@ -24,9 +24,6 @@ class SkyMap extends Map {
           res2: {type: "f", value: 0},
           resMix: {type: "f", value: 0},
           mixScale: {type: "f", value: 0},
-          color1: {type: "c", value: new THREE.Color()},
-          color2: {type: "c", value: new THREE.Color()},
-          color3: {type: "c", value: new THREE.Color()},
           nebulaeMap: {type: "t", value: new THREE.Texture()}
         },
         vertexShader: vertShader,
@@ -52,9 +49,6 @@ class SkyMap extends Map {
       this.mats[i].uniforms.res2.value = props.res2;
       this.mats[i].uniforms.resMix.value = props.resMix;
       this.mats[i].uniforms.mixScale.value = props.mixScale;
-      this.mats[i].uniforms.color1.value = props.color1;
-      this.mats[i].uniforms.color2.value = props.color2;
-      this.mats[i].uniforms.color3.value = props.color3;
       this.mats[i].uniforms.nebulaeMap.value = props.nebulaeMap;
       this.mats[i].needsUpdate = true;
     }

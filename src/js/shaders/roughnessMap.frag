@@ -15,16 +15,14 @@ void main() {
 
 	float pixelSize = 1.0 / resolution;
 
-
 	float n = texture2D(heightMap, vec2(x, y)).r;
+	float roughness = 0.0;
 
 	if (n < waterLevel) {
-		n = 0.75;
+		roughness = 0.75;
 	} else {
-		// n = 0.5 - n;
-		// n = 1.0 - (n*0.5);
-		n = 0.95;
+		roughness = 0.95;
 	}
 
-  gl_FragColor = vec4(vec3(n), 1.0);
+  gl_FragColor = vec4(vec3(roughness), 1.0);
 }

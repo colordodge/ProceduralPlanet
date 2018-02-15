@@ -29,9 +29,9 @@ class Biome {
     let l = this.randRange(0.3, 0.5);
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.5)
-    this.satRange = this.randRange(0.2, 0.5);
-    this.lightRange = this.randRange(0.2, 0.5);
-    this.circleSize = this.randRange(30, 300);
+    this.satRange = this.randRange(0.3, 0.5);
+    this.lightRange = this.randRange(0.3, 0.5);
+    this.circleSize = this.randRange(50, 200);
 
 
     this.drawBase();
@@ -195,7 +195,7 @@ class Biome {
     let falloff = 1.3;
     let falloff2 = 1.0;
     let falloff3 = 0.7;
-    let opacity = 0.7;
+    let opacity = 0.9;
     // gradient.addColorStop(0.0, "rgba("+cr+", "+cg+", "+cb+", "+0+")");
     gradient.addColorStop(0.0, "rgba("+Math.round(c.r*falloff)+", "+Math.round(c.g*falloff)+", "+Math.round(c.b*falloff)+", "+opacity+")");
     gradient.addColorStop(0.2, "rgba("+Math.round(c.r*falloff2)+", "+Math.round(c.g*falloff2)+", "+Math.round(c.b*falloff2)+", "+opacity+")");
@@ -283,7 +283,7 @@ class Biome {
     }
     newColor.offsetHSL(hOffset, sOffset, 0);
     let c = newColor.getHSL();
-    newColor.setHSL(c.h, this.randRange(0.0, 0.5), this.randRange(0.2, 0.5));
+    newColor.setHSL(c.h, this.randRange(0.1, 0.4), this.randRange(0.2, 0.4));
     return {r: Math.round(newColor.r*255),
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};
@@ -305,7 +305,7 @@ class Biome {
     }
 
     let sOffset = this.randRange(-this.satRange, this.satRange);
-    let lOffset = this.randRange(-this.lightRange, this.lightRange);
+    let lOffset = this.randRange(-this.lightRange, this.lightRange*0.5);
 
     newColor.offsetHSL(hOffset, sOffset, lOffset);
 
@@ -313,31 +313,6 @@ class Biome {
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};
 
-  }
-
-  randomNebulaeColor(colorOffset) {
-    let newColor = this.baseColor.clone();
-
-    let hOffset = 0.0;
-    let range = 0.1;
-    let n = this.randRange(0,1);
-    if (colorOffset == 0) {
-      hOffset = 0.0 + this.randRange(-range, range);
-    } else if (colorOffset == 1){
-      hOffset = this.colorAngle + this.randRange(-range, range);
-    } else {
-      hOffset = -this.colorAngle + this.randRange(-range, range);
-    }
-
-    let sOffset = this.randRange(-0.3, 0.3);
-    let lOffset = this.randRange(-0.4, 0.4);
-
-    newColor.offsetHSL(hOffset, 0.0, 0.0);
-
-    let c = newColor.getHSL();
-    newColor.setHSL(c.h, this.randRange(0.0, 1.0), this.randRange(0.3, 0.7));
-
-    return newColor
   }
 
   toCanvasColor(c) {

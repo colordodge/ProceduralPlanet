@@ -8,7 +8,7 @@ class Clouds {
     this.view = new THREE.Object3D();
 
     this.materials = [];
-    this.roughness = 0.8;
+    this.roughness = 0.9;
     this.metalness = 0.5;
     this.normalScale = 5.0;
     this.clouds = 1.0;
@@ -78,10 +78,10 @@ class Clouds {
     this.cloudMap.render({
       seed: this.seed,
       resolution: this.resolution,
-      res1: cloudSize,
-      res2: this.randRange(0.3, 1.0),
-      resMix: this.randRange(0.5, 1.0),
-      mixScale: mixScale
+      res1: this.randRange(0.1, 1.0),
+      res2: this.randRange(0.1, 1.0),
+      resMix: this.randRange(0.1, 1.0),
+      mixScale: this.randRange(0.1, 1.0)
     });
 
     this.updateMaterial();
@@ -98,9 +98,9 @@ class Clouds {
       material.metalness = this.metalness;
       material.opacity = this.clouds;
       material.map = this.cloudMaps[i],
-      material.alphaMap = this.cloudMaps[i],
-      material.bumpMap = this.cloudMaps[i],
-      material.bumpScale = 1.0,
+      // material.alphaMap = this.cloudMaps[i],
+      // material.bumpMap = this.cloudMaps[i],
+      // material.bumpScale = 1.0,
       material.color = this.color
     }
   }

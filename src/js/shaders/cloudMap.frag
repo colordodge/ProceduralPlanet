@@ -44,19 +44,20 @@ float simplex(vec3 pos, float seed) {
 	float n = noise(vec4(pos, seed));
 	// return (n + 1.0) * 0.5;
 	n = (n + 1.0) * 0.5;
-	n = 2.0 * (0.5 - abs(0.5 - n));
+	// n = 2.0 * (0.5 - abs(0.5 - n));
 	return n;
 }
 
 float baseNoise(vec3 pos, float frq, float seed ) {
 	const int octaves = 16;
-	float amp = 0.57;
+	float amp = 0.5;
 
 	float n = 0.0;
 	float gain = 1.0;
 	for(int i=0; i<octaves; i++) {
-		n +=  simplex(vec3(pos.x*gain/frq, pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
+		n +=  simplexRidged(vec3(pos.x*gain/frq, pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
 		gain *= 2.0;
+		// amp *= 2.0;
 	}
 
 
@@ -70,14 +71,14 @@ float baseNoise(vec3 pos, float frq, float seed ) {
 	// n += 0.4;
 
 	// increase contrast
-	// n = ( (n - 0.5) * 3.0 ) + 0.6;
+	n = ( (n - 0.5) * 2.0 ) + 0.6;
 
 	// n = pow(n, 3.0);
 
 	// n = pow( (1.0-n), 2.0);
 
 
-	n = pow(n, 2.0);
+	// n = pow(n, 2.0);
 
 
 	// n = 1.0-n;
@@ -114,14 +115,12 @@ float billowNoise(vec3 pos, float frq, float seed) {
 	float n = 0.0;
 	float gain = 1.0;
 	for(int i=0; i<octaves; i++) {
-		n +=  simplexRidged(vec3(pos.x*gain/frq, 2.0*pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
+		n +=  simplexRidged(vec3(pos.x*gain/frq, pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
 		gain *= 2.0;
 	}
 
-
-
 	n = 1.0-n;
-	n = pow(n, 3.0);
+	n = pow(n, 1.0);
 	n = 1.0-n;
 
 	return n;
@@ -130,9 +129,10 @@ float billowNoise(vec3 pos, float frq, float seed) {
 float cloud(vec3 pos, float seed) {
 	float n = noise(vec4(pos, seed));
 	// n = sin(n*4.0 * cos(n*2.0));
-	n = sin(n*5.0);
+	n = sin(n*3.0);
 
 	n = n*0.5 + 0.5;
+	// n = abs(n);
 	// n = 1.0-n;
 	// n = n*1.2;
 	// n = 1.0-n;
@@ -161,24 +161,60 @@ float cloudNoise(vec3 pos, float frq, float seed) {
 	return n;
 }
 
+float perlin(vec3 pos, float seed) {
+	float n = noise(vec4(pos, seed));
+	n = (n + 1.0) * 0.5;
+	return n;
+}
+
+float perlinNoise(vec3 pos, float frq, float seed ) {
+
+	const int octaves = 16;
+	float n = 0.0;
+	float amplitude = 0.7;
+
+	for (int i = 0; i < octaves; i++) {
+		n += amplitude * perlin(pos*frq, seed);
+		frq *= 2.0; // lacunarity = 2.0
+		amplitude *= n; // gain = 0.5
+	}
+
+	n = pow(n, 2.0);
+
+	return n;
+}
+
 void main() {
 	float x = vUv.x;
 	float y = 1.0 - vUv.y;
 	vec3 sphericalCoord = getSphericalCoord(index, x*resolution, y*resolution, resolution);
 
+	/////////////////
+	float sub1 = baseNoise(sphericalCoord, 0.5, seed);
+	float sub1b = billowNoise(sphericalCoord, 1.0, seed+93.386);
+	float n1 = baseNoise(sphericalCoord + vec3(sub1*0.3), 0.5, seed+38.378);
 
-	float n = cloudNoise(sphericalCoord, res1, seed);
-	float n3 = cloudNoise(sphericalCoord, res2, seed+24.975);
-	float n2 = cloudNoise(sphericalCoord + vec3(n*0.25), 1.0+n3, seed+10.2);
-	gl_FragColor = vec4(vec3(n2), 1.0);
+	float sub2 = baseNoise(sphericalCoord, 0.5, seed+12.412);
+	float n2 = baseNoise(sphericalCoord + vec3(sub2*0.3), 0.5+sub1b, seed+58.578);
+
+	n1 = 1.0-n1;
+	n1 *= 0.1;
+	n1 = 1.0-n1;
+
+	n2 = 1.0-n2;
+	n2 = pow(n2, 5.0);
+	n2 *= 0.3;
+	n2 = 1.0-n2;
+	n2 = pow(n2, 5.0);
+
+	gl_FragColor = vec4(vec3(n1), n2);
+	///////////////////
 
 
-
-	// float n = billowNoise(sphericalCoord, 1.0, seed);
-	// float n2 = billowNoise(sphericalCoord, 1.0, seed+23.947);
-	// float n2 = cloudNoise(sphericalCoord + vec3(n*0.25), res2, seed+10.2);
-	// gl_FragColor = vec4(vec3(n), n2);
-
+	// float sub1 = perlinNoise(sphericalCoord, 1.0, seed);
+	// float n1 = billowNoise(sphericalCoord + vec3(sub1*0.1), 0.5, seed+38.378);
+  //
+	// gl_FragColor = vec4(vec3(n1), n1);
 
 
 }

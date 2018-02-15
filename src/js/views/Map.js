@@ -16,7 +16,7 @@ class Map {
 
     for (let i = 0; i < 6; i++) {
       let tempRes = 1000;
-      this.textures[i] = new THREE.WebGLRenderTarget(tempRes, tempRes, {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat});
+      this.textures[i] = new THREE.WebGLRenderTarget(tempRes, tempRes, {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat});
   		this.textureCameras[i] = new THREE.OrthographicCamera(-tempRes/2, tempRes/2, tempRes/2, -tempRes/2, -100, 100);
   		this.textureCameras[i].position.z = 10;
 
