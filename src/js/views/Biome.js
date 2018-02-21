@@ -26,19 +26,19 @@ class Biome {
 
     let h = this.randRange(0.0, 1.0);
     let s = this.randRange(0.0, 0.5);
-    let l = this.randRange(0.3, 0.5);
+    let l = this.randRange(0.2, 0.5);
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.5)
     this.satRange = this.randRange(0.3, 0.5);
     this.lightRange = this.randRange(0.3, 0.5);
-    this.circleSize = this.randRange(50, 200);
+    this.circleSize = this.randRange(30, 300);
 
 
     this.drawBase();
 
     // circles
-    let numCircles = Math.round(this.randRange(10, 100));
-    // numCircles = 100;
+    let numCircles = Math.round(this.randRange(50, 100));
+    numCircles = 100;
     for (let i=0; i<numCircles; i++) {
       this.randomGradientCircle();
     }
@@ -250,7 +250,7 @@ class Biome {
   randomGradientCircle() {
     let x1 = this.randRange(0, this.width);
     let y1 = this.randRange(0, this.height) - this.height * this.waterLevel;
-    let size = this.randRange(1, this.circleSize);
+    let size = this.randRange(10, this.circleSize);
     let x2 = x1;
     let y2 = y1;
     let r1 = 0;
@@ -283,7 +283,7 @@ class Biome {
     }
     newColor.offsetHSL(hOffset, sOffset, 0);
     let c = newColor.getHSL();
-    newColor.setHSL(c.h, this.randRange(0.1, 0.4), this.randRange(0.2, 0.4));
+    newColor.setHSL(this.randRange(0, 1), this.randRange(0.1, 0.5), this.randRange(0.2, 0.5));
     return {r: Math.round(newColor.r*255),
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};
@@ -305,15 +305,55 @@ class Biome {
     }
 
     let sOffset = this.randRange(-this.satRange, this.satRange);
-    let lOffset = this.randRange(-this.lightRange, this.lightRange*0.5);
+    let lOffset = this.randRange(-this.lightRange, this.lightRange);
 
-    newColor.offsetHSL(hOffset, sOffset, lOffset);
+    let c = newColor.getHSL();
+    c.h += hOffset;
+    c.s += sOffset;
+    c.l += lOffset;
+    if (c.l < 0) {
+      c.l = Math.abs(c.l);
+    }
+    if (c.l > 0.7) {
+      let diff = c.l - 0.7;
+      c.l = 0.7 - diff;
+    }
+
+
+    newColor.setHSL(c.h, c.s, c.l);
+
+    // newColor.offsetHSL(hOffset, sOffset, lOffset);
 
     return {r: Math.round(newColor.r*255),
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};
 
   }
+
+  // randomColor() {
+  //
+  //   let newColor = this.baseColor.clone();
+  //
+  //   let hOffset = 0.0;
+  //   let range = 0.1;
+  //   let n = this.randRange(0,1);
+  //   if (n < 0.33) {
+  //     hOffset = 0.0 + this.randRange(-range, range);
+  //   } else if (n < 0.66) {
+  //     hOffset = this.colorAngle + this.randRange(-range, range);
+  //   } else {
+  //     hOffset = -this.colorAngle + this.randRange(-range, range);
+  //   }
+  //
+  //   newColor.offsetHSL(hOffset, 0, 0);
+  //   let c = newColor.getHSL();
+  //   newColor.setHSL(c.h, this.randRange(0.0, 0.8), this.randRange(0.0, 0.6));
+  //
+  //   return {r: Math.round(newColor.r*255),
+  //           g: Math.round(newColor.g*255),
+  //           b: Math.round(newColor.b*255)};
+  //
+  // }
 
   toCanvasColor(c) {
     return "rgba("+Math.round(c.r*255)+", "+Math.round(c.g*255)+", "+Math.round(c.b*255)+", 1.0)";

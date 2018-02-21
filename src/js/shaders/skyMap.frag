@@ -1,4 +1,4 @@
-import noise from 'glsl-noise/classic/4d'
+import noise from 'glsl-noise/classic/3d'
 
 varying vec2 vUv;
 uniform int index;
@@ -191,7 +191,7 @@ vec3 getSphericalCoord(int index, float x, float y, float width) {
 // }
 
 float simplexRidged(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 	// n = (n + 1.0) * 0.5;
 	// n = 2.0 * (0.5 - abs(0.5 - n));
 	n = abs(n);
@@ -199,7 +199,7 @@ float simplexRidged(vec3 pos, float seed) {
 }
 
 float simplex(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 	// return (n + 1.0) * 0.5;
 	n = (n + 1.0) * 0.5;
 	// n = 2.0 * (0.5 - abs(0.5 - n));
@@ -285,7 +285,7 @@ float invRidgedNoise(vec3 pos, float frq, float seed) {
 }
 
 float cloud(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 	// n = sin(n*4.0 * cos(n*2.0));
 	n = sin(n*7.0);
 
@@ -298,7 +298,7 @@ float cloud(vec3 pos, float seed) {
 }
 
 float cloudNoise(vec3 pos, float frq, float seed) {
-	const int octaves = 32;
+	const int octaves = 16;
 	float amp = 0.5;
 
 	float n = 0.0;
@@ -318,7 +318,7 @@ float cloudNoise(vec3 pos, float frq, float seed) {
 }
 
 float star(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 
 	n = abs(n);
 
@@ -402,9 +402,11 @@ void main() {
   n2 *= sub1;
 	nColor += vec3(n2);
 
+  // nColor *= 0.8;
 
   // c2 = pow(c2, 2.0);
 	vec3 nebula = mix(starsColor, nColor, c2);
+
 
 	gl_FragColor = vec4(nebula, 1.0);
 }

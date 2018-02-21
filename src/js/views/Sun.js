@@ -8,12 +8,12 @@ export default class Sun {
   }
 
   setup() {
-    this.geo = new THREE.SphereGeometry(1000, 32, 32);
-    this.mat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0xFFFFFF),
-      emissive: new THREE.Color(0xFFFFAA)
-    });
-    this.mesh = new THREE.Mesh(this.geo, this.mat);
-    this.view.add(this.mesh);
+
+    var textureFlare = new THREE.TextureLoader().load( 'assets/textures/lenseFlare.jpg' );
+    var flareColor = new THREE.Color( 0xffffff );
+    var lensFlare = new THREE.LensFlare( textureFlare, 700, 0.0, THREE.AdditiveBlending, flareColor );
+
+    lensFlare.position.set(-20000, 20000, 20000);
+    this.view.add( lensFlare );
   }
 }

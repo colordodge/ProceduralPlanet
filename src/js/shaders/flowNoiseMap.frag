@@ -1,4 +1,4 @@
-import noise from 'glsl-noise/classic/4d'
+import noise from 'glsl-noise/classic/3d'
 
 varying vec2 vUv;
 uniform int index;
@@ -9,7 +9,7 @@ uniform float res2;
 uniform float resMix;
 uniform float mixScale;
 uniform float doesRidged;
-const int octaves = 32;
+const int octaves = 16;
 
 // #define M_PI 3.1415926535897932384626433832795;
 
@@ -31,14 +31,14 @@ vec3 getSphericalCoord(int index, float x, float y, float width) {
 }
 
 float simplexRidged(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 	n = (n + 1.0) * 0.5;
 	n = 2.0 * (0.5 - abs(0.5 - n));
 	return n;
 }
 
 float simplex(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 	return (n + 1.0) * 0.5;
 }
 
@@ -89,7 +89,7 @@ float invRidgedNoise(vec3 pos, float frq, float seed) {
 }
 
 float cloud(vec3 pos, float seed) {
-	float n = noise(vec4(pos, seed));
+	float n = noise(vec3(pos + seed));
 	// n = sin(n*4.0 * cos(n*2.0));
 	n = sin(n*5.0);
 	// n = abs(sin(n*5.0));
@@ -110,7 +110,7 @@ float cloudNoise(vec3 pos, float frq, float seed) {
 	float n = 0.0;
 	float gain = 1.0;
 	for(int i=0; i<octaves; i++) {
-		n +=  cloud(vec3(pos.x*gain/frq, 1.0*pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
+		n +=  cloud(vec3(pos.x*gain/frq, pos.y*gain/frq, pos.z*gain/frq), seed+float(i)*10.0) * amp/gain;
 		gain *= 2.0;
 	}
 
@@ -131,7 +131,7 @@ void main() {
 	float sub1, sub2, sub3, n;
 
 	float resMod = 1.0; // overall res magnification
-	float resMod2 = 1.0; // minimum res mod
+	float resMod2 = 0.5; // minimum res mod
 
 	if (doesRidged == 0.0) {
 		sub1 = cloudNoise(sphericalCoord, res1*resMod, seed+11.437);

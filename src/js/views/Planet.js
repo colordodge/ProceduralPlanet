@@ -84,7 +84,7 @@ class Planet {
 
     this.createScene();
     this.createSky();
-    // this.createSun();
+    this.createSun();
     // this.createClouds();
     // this.createGlow();
 
@@ -252,13 +252,15 @@ class Planet {
 
     window.renderQueue.start();
 
+    let resMin = 0.1;
+    let resMax = 3.0;
 
     this.heightMap.render({
       seed: this.seed,
       resolution: this.resolution,
-      res1: this.randRange(0.1, 2.0),
-      res2: this.randRange(0.1, 2.0),
-      resMix: this.randRange(0.1, 2.0),
+      res1: this.randRange(resMin, resMax),
+      res2: this.randRange(resMin, resMax),
+      resMix: this.randRange(resMin, resMax),
       mixScale: this.randRange(0.3, 0.7),
       doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 1
@@ -267,9 +269,9 @@ class Planet {
     this.moistureMap.render({
       seed: this.seed + 392.253,
       resolution: this.resolution,
-      res1: this.randRange(0.1, 2.0),
-      res2: this.randRange(0.1, 2.0),
-      resMix: this.randRange(0.1, 2.0),
+      res1: this.randRange(resMin, resMax),
+      res2: this.randRange(resMin, resMax),
+      resMix: this.randRange(resMin, resMax),
       mixScale: this.randRange(0.3, 0.7),
       doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 0
@@ -381,7 +383,6 @@ class Planet {
   createSun() {
     this.sun = new Sun();
     this.view.add(this.sun.view);
-    this.sun.view.position.set( -20000, 20000, 20000 );
   }
 
   updateNormalScaleForRes(value) {
