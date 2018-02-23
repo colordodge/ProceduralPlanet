@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import vertShader from 'shaders/texture.vert'
-import fragShader from 'shaders/skyMap.frag'
+import fragShader from 'shaders/nebula.frag'
 import Map from 'views/Map.js'
 
-class SkyMap extends Map {
+export default class NebulaMap extends Map {
 
   constructor() {
     super();
@@ -58,5 +58,3 @@ class SkyMap extends Map {
 
 
 }
-
-export default SkyMap;

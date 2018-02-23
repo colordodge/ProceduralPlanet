@@ -283,7 +283,7 @@ class Biome {
     }
     newColor.offsetHSL(hOffset, sOffset, 0);
     let c = newColor.getHSL();
-    newColor.setHSL(this.randRange(0, 1), this.randRange(0.1, 0.5), this.randRange(0.2, 0.5));
+    newColor.setHSL(this.randRange(0.0, 1.0), this.randRange(0.1, 0.5), this.randRange(0.2, 0.5));
     return {r: Math.round(newColor.r*255),
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};

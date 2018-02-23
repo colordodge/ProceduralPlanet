@@ -25,7 +25,7 @@ void main() {
 	// Value from trial & error.
   // Seems to work fine for the scales we are dealing with.
   // float strength = scale.Y / 16;
-  float strength = 1.0;
+  float strength = 0.8;
 
 
 	float level = texture2D(heightMap, vec2(x, y)).r;

@@ -17,7 +17,7 @@ class AbstractApplication {
 
         this._renderer = new THREE.WebGLRenderer({antialias: false, alpha: true});
         this._renderer.setPixelRatio( window.devicePixelRatio );
-
+        this._renderer.sortObjects = false;
         // this._renderer.setPixelRatio( 3.0 );
         this._renderer.setSize( window.innerWidth, window.innerHeight );
         window.renderer = this._renderer;

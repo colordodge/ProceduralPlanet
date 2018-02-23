@@ -22,18 +22,13 @@ class NebulaeGradient {
   generateTexture() {
 
     let h = this.randRange(0.0, 1.0);
-    let s = this.randRange(0.4, 0.6);
-    let l = this.randRange(0.4, 0.6);
+    let s = this.randRange(0.2, 0.8);
+    let l = this.randRange(0.2, 0.6);
     this.baseColor = new THREE.Color().setHSL(h, s, l);
     this.colorAngle = this.randRange(0.0, 0.5);
 
     this.fillBaseColor();
-
-    let numStrips = Math.round(this.randRange(20, 100));
-    // numStrips = 20;
-    for (let i=0; i<numStrips; i++) {
-      this.randomGradientCircle();
-    }
+    this.drawShapes();
 
     this.texture = new THREE.CanvasTexture(this.canvas);
 
@@ -52,10 +47,17 @@ class NebulaeGradient {
     this.ctx.fillRect(0, 0, this.width, this.height);
   }
 
+  drawShapes() {
+    let numCircles = Math.round(this.randRange(20, 50));
+    for (let i=0; i<numCircles; i++) {
+      this.randomGradientCircle();
+    }
+  }
+
   randomGradientCircle() {
     let x1 = this.randRange(0, this.width);
     let y1 = this.randRange(0, this.height);
-    let size = this.randRange(30, 230);
+    let size = this.randRange(100, 200);
     let x2 = x1;
     let y2 = y1;
     let r1 = 0;

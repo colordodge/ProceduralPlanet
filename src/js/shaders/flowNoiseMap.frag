@@ -131,7 +131,7 @@ void main() {
 	float sub1, sub2, sub3, n;
 
 	float resMod = 1.0; // overall res magnification
-	float resMod2 = 0.5; // minimum res mod
+	float resMod2 = mixScale; // minimum res mod
 
 	if (doesRidged == 0.0) {
 		sub1 = cloudNoise(sphericalCoord, res1*resMod, seed+11.437);

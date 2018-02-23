@@ -52,7 +52,7 @@ class Atmosphere {
 
     this.mat.transparent = true;
     this.mat.blending = THREE.AdditiveBlending;
-    // this.mat.side = THREE.BackSide;
+    // this.mat.side = THREE.DoubleSide;
 
     // this.mat = new THREE.MeshStandardMaterial({color: 0xFFFFFF});
 

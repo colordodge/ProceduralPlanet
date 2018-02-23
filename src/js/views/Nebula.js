@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import SkyMap from 'views/SkyMap.js'
+import NebulaMap from 'views/NebulaMap.js'
 
-class Sky {
+export default class Nebula {
 
   constructor() {
     this.view = new THREE.Object3D();
@@ -12,7 +12,7 @@ class Sky {
     this.emissiveIntensity = 1.0;
 
     this.resolution = 1024;
-    this.size = 50000;
+    this.size = 45000;
 
     this.skyMaps = [];
 
@@ -27,18 +27,20 @@ class Sky {
 
   setup() {
 
-    this.skyMap = new SkyMap();
+    this.skyMap = new NebulaMap();
     this.skyMaps = this.skyMap.maps;
 
     for (let i=0; i<6; i++) {
       let material = new THREE.MeshBasicMaterial({
         color: new THREE.Color(0xFFFFFF),
         side: THREE.BackSide,
+        transparent: true,
+        opacity: 1.0
       });
       this.materials[i] = material;
     }
 
-    let geo = new THREE.BoxGeometry(1, 1, 1, 64, 64, 64);
+    let geo = new THREE.BoxGeometry(1, 1, 1, 32, 32, 32);
     let radius = this.size;
     for (var i in geo.vertices) {
   		var vertex = geo.vertices[i];
@@ -53,13 +55,16 @@ class Sky {
 
     this.seed = this.randRange(0, 1000);
 
+    let min = 2.0;
+    let max = 3.0;
+
     this.skyMap.render({
       seed: this.seed,
       resolution: this.resolution,
-        res1: this.randRange(0.5, 1.5),
-      res2: this.randRange(0.5, 1.5),
-      resMix: this.randRange(0.5, 1.5),
-      mixScale: 0.5,
+      res1: this.randRange(min, max),
+      res2: this.randRange(min, max),
+      resMix: this.randRange(min, max),
+      mixScale: this.randRange(min, max),
       color1: this.color1,
       color2: this.color2,
       color3: this.color3,
@@ -104,5 +109,3 @@ class Sky {
   }
 
 }
-
-export default Sky;

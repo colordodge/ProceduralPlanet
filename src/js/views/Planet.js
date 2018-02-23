@@ -11,7 +11,8 @@ import TextureMap from 'views/TextureMap.js'
 import NormalMap from 'views/NormalMap.js'
 import RoughnessMap from 'views/RoughnessMap.js'
 import Clouds from 'views/Clouds.js'
-import Sky from 'views/Sky.js'
+import Stars from 'views/Stars.js'
+import Nebula from 'views/Nebula.js'
 import Sun from 'views/Sun.js'
 import Glow from 'views/Glow.js'
 import NebulaeGradient from 'views/NebulaeGradient.js'
@@ -83,7 +84,8 @@ class Planet {
     this.nebulaeGradient = new NebulaeGradient();
 
     this.createScene();
-    this.createSky();
+    this.createStars();
+    this.createNebula();
     this.createSun();
     // this.createClouds();
     // this.createGlow();
@@ -139,7 +141,8 @@ class Planet {
   update() {
     if (this.rotate) {
       this.ground.rotation.y += 0.0005;
-      this.sky.view.rotation.y += 0.0003;
+      this.stars.view.rotation.y += 0.0003;
+      this.nebula.view.rotation.y += 0.0003;
       // this.clouds.view.rotation.y += 0.0007;
     }
 
@@ -156,7 +159,8 @@ class Planet {
       }
     }
 
-    this.sky.view.position.copy(window.camera.position);
+    this.stars.view.position.copy(window.camera.position);
+    this.nebula.view.position.copy(window.camera.position);
 
     // this.atmosphereRing.update();
 
@@ -238,14 +242,15 @@ class Planet {
     this.initSeed();
 
     this.seed = this.randRange(0, 1) * 1000.0;
-    this.waterLevel = this.randRange(0.1, 0.6);
+    this.waterLevel = this.randRange(0.1, 0.5);
     // this.clouds.resolution = this.resolution;
 
     this.updateNormalScaleForRes(this.resolution);
     this.renderBiomeTexture();
     this.renderNebulaeGradient();
 
-    this.sky.resolution = this.resolution;
+    this.stars.resolution = this.resolution;
+    this.nebula.resolution = this.resolution;
     this.atmosphere.randomizeColor();
     // this.clouds.randomizeColor();
     // this.clouds.color = this.atmosphere.color;
@@ -261,7 +266,7 @@ class Planet {
       res1: this.randRange(resMin, resMax),
       res2: this.randRange(resMin, resMax),
       resMix: this.randRange(resMin, resMax),
-      mixScale: this.randRange(0.3, 0.7),
+      mixScale: this.randRange(0.5, 1.0),
       doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 1
     });
@@ -272,7 +277,7 @@ class Planet {
       res1: this.randRange(resMin, resMax),
       res2: this.randRange(resMin, resMax),
       resMix: this.randRange(resMin, resMax),
-      mixScale: this.randRange(0.3, 0.7),
+      mixScale: this.randRange(0.5, 1.0),
       doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 0
     });
@@ -301,7 +306,11 @@ class Planet {
     //   waterLevel: this.waterLevel
     // });
 
-    this.sky.render({
+    this.stars.render({
+      nebulaeMap: this.nebulaeGradient.texture
+    });
+
+    this.nebula.render({
       nebulaeMap: this.nebulaeGradient.texture
     });
 
@@ -375,9 +384,14 @@ class Planet {
     this.view.add(this.clouds.view);
   }
 
-  createSky() {
-    this.sky = new Sky();
-    this.view.add(this.sky.view);
+  createStars() {
+    this.stars = new Stars();
+    this.view.add(this.stars.view);
+  }
+
+  createNebula() {
+    this.nebula = new Nebula();
+    this.view.add(this.nebula.view);
   }
 
   createSun() {
