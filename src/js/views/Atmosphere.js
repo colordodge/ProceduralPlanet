@@ -23,11 +23,9 @@ class Atmosphere {
 
     // this.randomizeColor();
     this.color = new THREE.Color(0x00ffff);
-
     this.size = 1002;
-
     this.atmosphere = 0.3;
-    window.gui.add(this, "atmosphere", 0.0, 1.0).step(0.01);
+    // window.gui.add(this, "atmosphere", 0.0, 1.0).step(0.01);
 
     // window.gui.add(this, "atmo1", 0.0, 3.0);
     // window.gui.add(this, "atmo2", 0.0, 3.0);

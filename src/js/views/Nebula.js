@@ -13,6 +13,7 @@ export default class Nebula {
 
     this.resolution = 1024;
     this.size = 45000;
+    this.nebula = 0.8;
 
     this.skyMaps = [];
 
@@ -35,7 +36,7 @@ export default class Nebula {
         color: new THREE.Color(0xFFFFFF),
         side: THREE.BackSide,
         transparent: true,
-        opacity: 1.0
+        opacity: this.nebula
       });
       this.materials[i] = material;
     }
@@ -78,6 +79,7 @@ export default class Nebula {
     for (let i=0; i<6; i++) {
       let material = this.materials[i];
       material.map = this.skyMaps[i];
+      material.opacity = this.nebula;
     }
   }
 

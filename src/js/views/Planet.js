@@ -80,6 +80,7 @@ class Planet {
 
 
 
+
     this.biome = new Biome();
     this.nebulaeGradient = new NebulaeGradient();
 
@@ -93,17 +94,16 @@ class Planet {
     // this.atmosphereRing = new AtmosphereRing();
     // this.view.add(this.atmosphereRing.view);
 
-
     this.createAtmosphere();
-
-
-
-
-
     this.loadSeedFromURL();
 
 
-
+    ////////////////// environment gui
+    let enviromentFolder = gui.addFolder('Environment');
+    enviromentFolder.add(this.atmosphere, "atmosphere", 0.0, 1.0).step(0.01);
+    enviromentFolder.add(this.nebula, "nebula", 0.0, 1.0).step(0.01).onChange(value => {
+      this.nebula.updateMaterial();
+    });
 
 
     this.rotate = true;
