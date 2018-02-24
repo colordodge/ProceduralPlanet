@@ -15,7 +15,7 @@ class Clouds {
 
 
     this.resolution = 1024;
-    this.size = 1002;
+    this.size = 1001;
 
 
     this.color = new THREE.Color(0xffffff);

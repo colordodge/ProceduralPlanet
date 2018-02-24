@@ -103,9 +103,9 @@ float ridgedNoise(vec3 pos, float frq, float seed) {
 
 	// n = pow(n, 5.0);
 
-	n = 1.0-n;
-	n = pow(n, 6.0);
-	n = 1.0-n;
+	// n = 1.0-n;
+	// n = pow(n, 2.0);
+	// n = 1.0-n;
 
 	return n;
 }
@@ -205,18 +205,21 @@ void main() {
   // create nebula
 
 	float c1 = cloudNoise(sphericalCoord, res1, seed);
-	float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.2), res2, seed+10.4);
+	float c2 = cloudNoise(sphericalCoord + vec3(c1*res2*0.2), res2, seed+310.4);
 	// c2 = pow(c2, 5.0) * 1.0;
-  float c3 = cloudNoise(sphericalCoord, resMix, seed + 61.384);
+  float c3 = cloudNoise(sphericalCoord, resMix, seed + 661.384);
 
   float nebulaStrength = 2.0 * pow(c2, 3.0);
   // float nebulaStrength = 1.0;
 	vec3 nColor = texture2D(nebulaeMap, vec2(c3, c1)).rgb * nebulaStrength;
+	// float c4 = cloudNoise(sphericalCoord, resMix, seed + 61.684);
+	// c4 = pow(c4, 3.0) * 1.0;
+	// nColor = mix(nColor, nColor*0.3, c4*1.0);
   vec4 nebula = vec4(nColor, 1.0);
 
 
 	// add in large stars to nebula
-  float sub1 = baseNoise(sphericalCoord, 0.003, seed+32.284);
+  float sub1 = baseNoise(sphericalCoord, 0.003, seed+322.284);
 	vec2 F = worley3D((sphericalCoord * 150.0) + vec3(seed+35.890), 1.0, true);
 	float F1 = F.x;
 	float n2 = F1;
@@ -229,7 +232,7 @@ void main() {
 
 
 
-  // float c4 = cloudNoise(sphericalCoord, 0.5, seed+38.476);
+  float c4 = invRidgedNoise(sphericalCoord, 1.0, seed+38.476);
 
 
   // c4 = ((c4 - 0.5) * 1.5) + 0.5;
