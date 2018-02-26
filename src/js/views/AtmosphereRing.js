@@ -7,7 +7,7 @@ class AtmosphereRing {
   constructor() {
     this.view = new THREE.Object3D();
 
-    this.size = 1010;
+    this.size = 1030;
     this.clock = new THREE.Clock();
 
     this.atmosphere = {

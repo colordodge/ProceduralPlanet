@@ -190,6 +190,7 @@ class Biome {
 
     let gradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
 
+    // let c = this.randomColor();
     let c = this.randomWaterColor();
 
     let falloff = 1.3;
@@ -269,10 +270,9 @@ class Biome {
 
   randomWaterColor() {
     let newColor = this.baseColor.clone();
-    let sOffset = this.randRange(-0.3, 0);
-    // let sOffset = 0;
+
     let hOffset = 0.0;
-    let range = 0.5;
+    let range = 0.1;
     let n = this.randRange(0,1);
     if (n < 0.33) {
       hOffset = 0.0 + this.randRange(-range, range);
@@ -281,9 +281,20 @@ class Biome {
     } else {
       hOffset = -this.colorAngle + this.randRange(-range, range);
     }
-    newColor.offsetHSL(hOffset, sOffset, 0);
+
+    // let sOffset = this.randRange(-this.satRange, this.satRange);
+    // let lOffset = this.randRange(-this.lightRange, this.lightRange);
+
     let c = newColor.getHSL();
-    newColor.setHSL(this.randRange(0.0, 1.0), this.randRange(0.1, 0.5), this.randRange(0.2, 0.5));
+    c.h += hOffset;
+    c.s = this.randRange(0.0, 0.6);
+    console.log("sat = " + c.s);
+    c.l = this.randRange(0.1, 0.5);
+
+    newColor.setHSL(c.h, c.s, c.l);
+
+    // newColor.offsetHSL(hOffset, sOffset, lOffset);
+
     return {r: Math.round(newColor.r*255),
             g: Math.round(newColor.g*255),
             b: Math.round(newColor.b*255)};

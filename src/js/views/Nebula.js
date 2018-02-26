@@ -56,7 +56,7 @@ export default class Nebula {
 
     this.seed = this.randRange(0, 1000);
 
-    let min = 2.0;
+    let min = 1.0;
     let max = 3.0;
 
     this.skyMap.render({

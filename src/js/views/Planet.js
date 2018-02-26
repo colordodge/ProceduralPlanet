@@ -19,6 +19,7 @@ import NebulaeGradient from 'views/NebulaeGradient.js'
 import seedrandom from 'seedrandom'
 import randomString from 'crypto-random-string'
 import AtmosphereRing from 'views/AtmosphereRing.js'
+import randomLorem from 'random-lorem'
 
 
 class Planet {
@@ -194,7 +195,9 @@ class Planet {
   }
 
   randomize() {
-    this.seedString = randomString(10);
+    // this.seedString = randomString(10);
+    this.seedString = randomLorem({ min: 2, max: 8 });
+    this.seedString += " " + randomLorem({ min: 2, max: 8 });
     let url = this.updateQueryString("seed", this.seedString);
     window.history.pushState({seed: this.seedString}, this.seedString, url);
     this.autoGenCountCurrent = 0;

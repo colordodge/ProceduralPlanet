@@ -238,7 +238,11 @@ void main() {
   // c4 = ((c4 - 0.5) * 1.5) + 0.5;
   // nebula.rgb += c4*0.3;
   nebula.a = pow( c2, 1.0);
-  // nebula.rgb = ((nebula.rgb - 0.5) * (1.0+c4*0.5)) + 0.5;
+  // nebula.rgb = ((nebula.rgb - 0.5) * (1.0+c2*1.0)) + 0.5;
+
+
+
+
 
 
 
