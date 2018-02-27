@@ -196,12 +196,29 @@ class Planet {
 
   randomize() {
     // this.seedString = randomString(10);
-    this.seedString = randomLorem({ min: 2, max: 8 });
-    this.seedString += " " + randomLorem({ min: 2, max: 8 });
+
+    let n = Math.random();
+    let wordCount = 0;
+    if (n > 0.8) wordCount = 1;
+    else if (n > 0.4) wordCount = 2;
+    else wordCount = 3;
+
+    this.seedString = "";
+    for (let i=0; i<wordCount; i++) {
+      this.seedString += this.capitalizeFirstLetter(randomLorem({ min: 2, max: 8 }));
+      if (i < wordCount-1) this.seedString += " ";
+    }
+
+    // this.seedString = randomLorem({ min: 2, max: 8 });
+    // this.seedString += " " + randomLorem({ min: 2, max: 8 });
     let url = this.updateQueryString("seed", this.seedString);
     window.history.pushState({seed: this.seedString}, this.seedString, url);
     this.autoGenCountCurrent = 0;
     this.renderScene();
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 

@@ -64,7 +64,7 @@ class RenderQueue {
   executeCallbacks() {
     for (let i=0; i<this.callbacks.length; i++) {
       this.callbacks[i]();
-      console.log("rendering complete");
+      // console.log("rendering complete");
     }
 
     this.loadingBar.hide();

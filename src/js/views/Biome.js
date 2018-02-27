@@ -288,7 +288,7 @@ class Biome {
     let c = newColor.getHSL();
     c.h += hOffset;
     c.s = this.randRange(0.0, 0.6);
-    console.log("sat = " + c.s);
+    // console.log("sat = " + c.s);
     c.l = this.randRange(0.1, 0.5);
 
     newColor.setHSL(c.h, c.s, c.l);
