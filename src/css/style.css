@@ -23,6 +23,13 @@ body {
   left: 0px;
 }
 
+#sunCanvas {
+  position: absolute;
+  z-index: 1000;
+  bottom: 0px;
+  right: 0px;
+}
+
 /* Position the button VR on the bottom of the page. */
 #ui {
     position: absolute;

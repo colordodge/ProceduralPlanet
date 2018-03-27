@@ -1,5 +1,5 @@
 
-class LoadingBar {
+export default class LoadingBar {
 
   constructor() {
     this.base = document.createElement("div");
@@ -23,5 +23,3 @@ class LoadingBar {
   }
 
 }
-
-export default LoadingBar;

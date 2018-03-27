@@ -334,6 +334,7 @@ class Planet {
       nebulaeMap: this.nebulaeGradient.texture
     });
 
+    this.sun.render();
 
 
     window.renderQueue.addCallback(() => {
@@ -440,7 +441,7 @@ class Planet {
   	geometry.computeMorphNormals();
   	geometry.computeBoundingSphere();
   	geometry.computeBoundingBox();
-  	geometry.computeLineDistances();
+  	// geometry.computeLineDistances();
 
   	geometry.verticesNeedUpdate = true;
   	geometry.elementsNeedUpdate = true;

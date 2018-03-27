@@ -30,6 +30,7 @@ class AbstractApplication {
         this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.6 );
         this.directionalLight.position.set( -1, 1.0, 1 );
         this._scene.add(this.directionalLight);
+        window.light = this.directionalLight;
 
         this._controls = new THREE.OrbitControls( this._camera, this._renderer.domElement );
         //this._controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)

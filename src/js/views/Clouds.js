@@ -128,7 +128,7 @@ class Clouds {
   	geometry.computeMorphNormals();
   	geometry.computeBoundingSphere();
   	geometry.computeBoundingBox();
-  	geometry.computeLineDistances();
+  	// geometry.computeLineDistances();
 
   	geometry.verticesNeedUpdate = true;
   	geometry.elementsNeedUpdate = true;
