@@ -18,7 +18,7 @@ class AbstractApplication {
         this._renderer = new THREE.WebGLRenderer({antialias: false, alpha: true});
         this._renderer.setPixelRatio( window.devicePixelRatio );
         this._renderer.sortObjects = false;
-        // this._renderer.setPixelRatio( 3.0 );
+        // this._renderer.setPixelRatio( 2.0 );
         this._renderer.setSize( window.innerWidth, window.innerHeight );
         window.renderer = this._renderer;
         document.body.appendChild( this._renderer.domElement );
@@ -82,6 +82,7 @@ class AbstractApplication {
         this.stats.domElement.style.top = '0px';
 
         window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
+        // window.addEventListener( 'resize', (e) => { this.onWindowResize() }, false );
     }
 
     get renderer(){
