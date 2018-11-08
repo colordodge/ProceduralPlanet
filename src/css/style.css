@@ -10,28 +10,132 @@ body {
 }
 
 #brandTag
-	{
-		position: fixed;
-		display: block;
-		top: 0px;
-		left: 30px;
-		color: white;
-		background-color: rgba(50, 50, 50, 0.5);
-		z-index: 1000;
-		text-align: center;
-		padding: 12px 12px 12px 12px;
-		font-size: 18px;
-		font-family: "Helvetica", sans-serif;
-		transition-property: color, background-color, padding;
-		transition-duration: 0.3s;
-	}
+{
+	position: fixed;
+	display: block;
+	top: 0px;
+	left: 30px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 1000;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+	font-size: 18px;
+	font-family: "Helvetica", sans-serif;
+	transition-property: color, background-color, padding;
+	transition-duration: 0.3s;
+}
+@media (width < 600px) {
 
-	#brandTag:hover
-	{
-		color: black;
-		background-color: white;
-		padding: 24px 12px 12px 12px;
-	}
+}
+
+@media screen and (max-width: 600px) {
+  #brandTag
+  {
+  	display: none;
+  }
+  #infoBoxHolder
+  {
+  	display: none;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  #infoBoxHolderMobile {
+    display: none;
+  }
+  #newPlanetButtonHolder {
+    display: none;
+  }
+}
+
+#brandTag:hover
+{
+	color: black;
+	background-color: white;
+	padding: 24px 12px 12px 12px;
+}
+
+#infoBoxHolder {
+  position: absolute;
+  z-index: 1000;
+  top: 0px;
+  right: 20px;
+  color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 245px;
+}
+
+#infoBox {
+  padding: 12px 12px 12px 12px;
+  font-size: 14px;
+	font-family: "Helvetica-Light", sans-serif;
+  line-height: 18px;
+}
+
+#planetName {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+#instructions {
+  font-size: 10px;
+}
+
+#infoBoxHolderMobile {
+  position: absolute;
+  z-index: 1000;
+  top: 0px;
+  width: 100%;
+
+}
+
+#infoBoxMobile {
+
+  margin: 0 auto;
+
+  width: 245px;
+  color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 12px 12px 12px 12px;
+  font-size: 14px;
+	font-family: "Helvetica-Light", sans-serif;
+  line-height: 18px;
+  text-align: center;
+}
+
+#planetNameMobile {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+
+#newPlanetButtonHolder {
+  position: absolute;
+  z-index: 1000;
+  bottom: 0px;
+  width: 100%;
+}
+
+#newPlanetButton {
+  margin: 0 auto;
+
+  width: 145px;
+  color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 12px 12px 12px 12px;
+  font-size: 18px;
+  font-family: "Helvetica-Light", sans-serif;
+  line-height: 18px;
+  text-align: center;
+}
+
+#line {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  height: 1px;
+}
+
 
 #biomeCanvas {
   position: absolute;

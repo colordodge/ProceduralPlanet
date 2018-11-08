@@ -43,7 +43,7 @@ class AbstractApplication {
         // this._controls.enableZoom = false;
 
         // gui
-        window.gui = new dat.GUI();
+        window.gui = new dat.GUI({ autoPlace: false });
 
         let lightFolder = gui.addFolder('Lighting');
 
@@ -82,7 +82,10 @@ class AbstractApplication {
         this.stats.domElement.style.top = '0px';
 
         window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
-        // window.addEventListener( 'resize', (e) => { this.onWindowResize() }, false );
+        window.addEventListener( 'keydown', (e) => { this.onKeyDown(e) }, false );
+
+
+        window.gui.close();
     }
 
     get renderer(){
@@ -103,6 +106,20 @@ class AbstractApplication {
 
     }
 
+    onKeyDown(e) {
+      if (e.keyCode == '72')
+  		{
+  			var brandTag = document.getElementById("brandTag");
+        var infoBoxHolder = document.getElementById("infoBoxHolder");
+  			if (brandTag.style.visibility == "hidden") {
+  				brandTag.style.visibility = "visible";
+          infoBoxHolder.style.visibility = "visible";
+  			} else {
+  				brandTag.style.visibility = "hidden";
+          infoBoxHolder.style.visibility = "hidden";
+  			}
+  		}
+    }
 
     onWindowResize() {
 

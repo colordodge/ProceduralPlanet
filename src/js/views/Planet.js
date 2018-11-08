@@ -137,6 +137,8 @@ class Planet {
       this.loadSeedFromURL();
     };
 
+    this.renderUI();
+
   }
 
   update() {
@@ -165,6 +167,48 @@ class Planet {
 
     // this.atmosphereRing.update();
 
+  }
+
+  renderUI(){
+    let infoBoxHolder = document.createElement("div");
+    infoBoxHolder.setAttribute("id", "infoBoxHolder");
+    document.body.appendChild(infoBoxHolder);
+
+    let infoBox = document.createElement("div");
+    infoBox.setAttribute("id", "infoBox");
+    infoBox.innerHTML = "Planet<br><div id='planetName'></div><br><div id='instructions'>H - Show/Hide UI<br>SPACEBAR - New Planet</div>";
+    infoBoxHolder.appendChild(infoBox);
+
+    let line = document.createElement("div");
+    line.setAttribute("id", "line");
+    infoBoxHolder.appendChild(line);
+    infoBoxHolder.appendChild(window.gui.domElement);
+
+    // mobile info box
+    let mobileInfoBox = document.createElement("div");
+    mobileInfoBox.setAttribute("id", "infoBoxHolderMobile");
+    mobileInfoBox.innerHTML = "<div id='infoBoxMobile'>Planet<br><div id='planetNameMobile'></div></div>";
+    document.body.appendChild(mobileInfoBox);
+
+    this.updatePlanetName();
+
+    // new planet button
+    let newPlanetButtonHolder = document.createElement("div");
+    newPlanetButtonHolder.setAttribute("id", "newPlanetButtonHolder");
+    newPlanetButtonHolder.innerHTML = "<div id='newPlanetButton'>New Planet</div>";
+    document.body.appendChild(newPlanetButtonHolder);
+  }
+
+  updatePlanetName() {
+    let planetName = document.getElementById("planetName");
+    if (planetName != null) {
+      planetName.innerHTML = this.seedString;
+    }
+
+    let planetNameMobile = document.getElementById("planetNameMobile");
+    if (planetNameMobile != null) {
+      planetNameMobile.innerHTML = this.seedString;
+    }
   }
 
   initSeed() {
@@ -260,6 +304,7 @@ class Planet {
   renderScene() {
 
     this.initSeed();
+    this.updatePlanetName();
 
     this.seed = this.randRange(0, 1) * 1000.0;
     this.waterLevel = this.randRange(0.1, 0.5);
