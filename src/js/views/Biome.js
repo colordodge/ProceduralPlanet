@@ -330,6 +330,7 @@ class Biome {
       c.l = 0.7 - diff;
     }
 
+    // c.s = this.randRange(0.1, 0.7);
 
     newColor.setHSL(c.h, c.s, c.l);
 

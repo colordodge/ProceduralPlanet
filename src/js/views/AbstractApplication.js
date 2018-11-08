@@ -24,7 +24,7 @@ class AbstractApplication {
         document.body.appendChild( this._renderer.domElement );
 
         // lights
-        this.ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        this.ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
         this._scene.add(this.ambientLight);
 
         this.directionalLight = new THREE.DirectionalLight( 0xffffff, 1.6 );

@@ -13,7 +13,7 @@ export default class Nebula {
 
     this.resolution = 1024;
     this.size = 45000;
-    this.nebula = 0.8;
+    this.nebula = 1.0;
 
     this.skyMaps = [];
 

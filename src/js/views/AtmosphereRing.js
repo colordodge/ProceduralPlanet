@@ -19,7 +19,7 @@ class AtmosphereRing {
     	outerRadius: this.size,
     	wavelength: [0.650, 0.570, 0.475],
     	scaleDepth: 0.25,
-    	mieScaleDepth: 0.5
+    	mieScaleDepth: 0.1
     };
 
     let placeholderColor = new THREE.Vector4(0,0,0,1);

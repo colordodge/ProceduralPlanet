@@ -1,4 +1,7 @@
 import * as THREE from 'three'
+import WAGNER from '@superguigui/wagner/'
+import MultiPassBloomPass from '@superguigui/wagner/src/passes/bloom/MultiPassBloomPass'
+import GodrayPass from '@superguigui/wagner/src/passes/godray/godraypass'
 import AbstractApplication from 'views/AbstractApplication'
 import shaderVert from 'shaders/custom.vert'
 import shaderFrag from 'shaders/custom.frag'
@@ -14,61 +17,58 @@ class Main extends AbstractApplication {
         // texture loading example
         // var texture = new THREE.TextureLoader().load( 'assets/textures/crate.gif' );
 
+        // this.initPostprocessing();
+
+        this.createBrandTag();
+
         window.renderQueue = new RenderQueue();
 
         this.planet = new Planet();
         this.scene.add(this.planet.view);
 
-
-        // this.screenshotRenderer = new THREE.WebGLRenderer({antialiasing:true});
-        // this.screenshotRenderer.setPixelRatio(window.devicePixelRatio);
-        // this.screenshotRenderer.setSize( window.innerWidth, window.innerHeight );
-        //
-        // this.shouldCaptureScreenshot = false;
-        // window.gui.add(this, "saveScreenshot");
-
         this.animate();
     }
 
-    saveScreenshot() {
-      this.shouldCaptureScreenshot = true;
+    initPostprocessing() {
+        this._renderer.autoClearColor = true;
+        this.composer = new WAGNER.Composer(this._renderer);
+        this.bloomPass = new MultiPassBloomPass({
+            blurAmount: 3,
+            applyZoomBlur: false
+        });
+        this.godrayPass = new GodrayPass();
+
+        let folder = window.gui.addFolder("Post Processing");
+        this.bloom = true;
+        folder.add(this, "bloom");
+        folder.add(this.bloomPass.params, "blurAmount", 0, 5);
+
+
     }
 
-    takeScreenshot() {
-
-
-      // document.body.appendChild( screenshotRenderer.domElement );
-
-      // material.uniforms.resolution.value.x = window.innerWidth*2;
-      // material.uniforms.resolution.value.y = window.innerHeight*2;
-      // this.screenshotRenderer.render(this.scene, this.camera);
-
-      // var w = window.open('', '');
-      // w.document.title = "screenshot";
-      // w.document.body.style.backgroundColor = "black";
-      // w.document.body.style.margin = "0px";
-      //
-      // var img = new Image();
-      // img.src = this.renderer.domElement.toDataURL();
-      // img.width = window.innerWidth;
-      // img.height = window.innerHeight;
-      // w.document.body.appendChild(img);
-
-      window.open( this.renderer.domElement.toDataURL( 'image/png' ), 'screenshot' );
-
-      // material.uniforms.resolution.value.x = window.innerWidth;
-      // material.uniforms.resolution.value.y = window.innerHeight;
+    createBrandTag() {
+      let a = document.createElement("a");
+      a.href = "http://www.colordodge.com";
+      a.innerHTML = "<div id='brandTag'>Colordodge</div>";
+      document.body.appendChild(a);
     }
 
     animate() {
-      window.renderQueue.update();
-      this.planet.update();
       super.animate();
 
-      // if (this.shouldCaptureScreenshot == true) {
-      //   this.takeScreenshot();
-      //   this.shouldCaptureScreenshot = false;
+      window.renderQueue.update();
+      this.planet.update();
+
+      // if (this.bloom) {
+      //   this.composer.reset();
+      //   this.composer.render(this._scene, this._camera);
+      //   // this.composer.pass(this.bloomPass);
+      //   this.composer.pass(this.godrayPass);
+      //   this.composer.toScreen();
       // }
+
+
+
     }
 
 }

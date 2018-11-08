@@ -9,6 +9,30 @@ body {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+#brandTag
+	{
+		position: fixed;
+		display: block;
+		top: 0px;
+		left: 30px;
+		color: white;
+		background-color: rgba(50, 50, 50, 0.5);
+		z-index: 1000;
+		text-align: center;
+		padding: 12px 12px 12px 12px;
+		font-size: 18px;
+		font-family: "Helvetica", sans-serif;
+		transition-property: color, background-color, padding;
+		transition-duration: 0.3s;
+	}
+
+	#brandTag:hover
+	{
+		color: black;
+		background-color: white;
+		padding: 24px 12px 12px 12px;
+	}
+
 #biomeCanvas {
   position: absolute;
   z-index: 1000;
