@@ -4,7 +4,7 @@ export default class LoadingBar {
   constructor() {
     this.base = document.createElement("div");
     this.base.id = "loadingBarHolder";
-    this.base.innerHTML = 'Rendering Planet</br><div id="loadingBarBase"><div id="loadingBar"></div></div>';
+    this.base.innerHTML = 'Rendering</br><div id="loadingBarBase"><div id="loadingBar"></div></div>';
   }
 
   update(progress) {

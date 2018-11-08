@@ -25,12 +25,12 @@ class Biome {
     this.waterLevel = props.waterLevel;
 
     let h = this.randRange(0.0, 1.0);
-    let s = this.randRange(0.0, 0.5);
-    let l = this.randRange(0.2, 0.5);
+    let s = this.randRange(0.0, 0.7);
+    let l = this.randRange(0.0, 0.6);
     this.baseColor = new THREE.Color().setHSL(h, s, l);
-    this.colorAngle = this.randRange(0.0, 0.5)
-    this.satRange = this.randRange(0.3, 0.5);
-    this.lightRange = this.randRange(0.3, 0.5);
+    this.colorAngle = this.randRange(0.1, 0.5)
+    this.satRange = this.randRange(0.5, 0.5);
+    this.lightRange = this.randRange(0.5, 0.5);
     this.circleSize = this.randRange(30, 300);
 
 
@@ -289,7 +289,7 @@ class Biome {
     c.h += hOffset;
     c.s = this.randRange(0.0, 0.6);
     // console.log("sat = " + c.s);
-    c.l = this.randRange(0.1, 0.5);
+    c.l = this.randRange(0.1, 0.4);
 
     newColor.setHSL(c.h, c.s, c.l);
 
@@ -323,12 +323,12 @@ class Biome {
     c.s += sOffset;
     c.l += lOffset;
     if (c.l < 0) {
-      c.l = Math.abs(c.l);
+      c.l = Math.abs(c.l) * 0.3;
     }
-    if (c.l > 0.7) {
-      let diff = c.l - 0.7;
-      c.l = 0.7 - diff;
-    }
+    // if (c.l > 0.7) {
+    //   let diff = c.l - 0.7;
+    //   c.l = 0.7 - diff;
+    // }
 
     // c.s = this.randRange(0.1, 0.7);
 

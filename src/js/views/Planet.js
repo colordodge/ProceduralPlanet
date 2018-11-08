@@ -197,6 +197,9 @@ class Planet {
     newPlanetButtonHolder.setAttribute("id", "newPlanetButtonHolder");
     newPlanetButtonHolder.innerHTML = "<div id='newPlanetButton'>New Planet</div>";
     document.body.appendChild(newPlanetButtonHolder);
+
+    let newPlanetButton = document.getElementById("newPlanetButton");
+    newPlanetButton.addEventListener('click', (e) => {this.randomize()} );
   }
 
   updatePlanetName() {
@@ -323,7 +326,7 @@ class Planet {
     window.renderQueue.start();
 
     let resMin = 0.1;
-    let resMax = 3.0;
+    let resMax = 5.0;
 
     this.heightMap.render({
       seed: this.seed,
