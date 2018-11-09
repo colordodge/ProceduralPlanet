@@ -325,7 +325,7 @@ class Planet {
 
     window.renderQueue.start();
 
-    let resMin = 0.1;
+    let resMin = 0.01;
     let resMax = 5.0;
 
     this.heightMap.render({
@@ -338,6 +338,10 @@ class Planet {
       doesRidged: Math.floor(this.randRange(0, 4))
       // doesRidged: 1
     });
+
+    let resMod = this.randRange(3, 10);
+    resMax *= resMod;
+    resMin *= resMod;
 
     this.moistureMap.render({
       seed: this.seed + 392.253,
