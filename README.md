@@ -1,4 +1,4 @@
-three.js webpack2
+Procedural Planets in WebGL using three.js
 
 ## How to install
 
